@@ -19,7 +19,17 @@ public class Enanos
     public double Vida
     {
         get => vida;
-        set => vida = value;
+        set
+        {
+            if (vida >= 0)
+            {
+                vida = value;
+            }
+            else
+            {
+                vida = 0;
+            }
+        }
     }
 
     
@@ -57,9 +67,9 @@ public class Enanos
 
     public void Curar()
     {
-        if (Vida + 50 <= 100)
+        if (Vida + 10 <= 100)
         {
-            vida += 50;
+            vida += 10;
         }
         else
         {
