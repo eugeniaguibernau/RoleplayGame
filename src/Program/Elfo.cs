@@ -5,7 +5,7 @@ public class Elfo
     private string nombre;
     public string Nombre { get => nombre; set => this.nombre = value; }
 
-    private List<Elementos> listaItems;
+    private List<Elementos> listaItems = new List<Elementos>();
     
     private double vida = 100;
     public double Vida
