@@ -11,12 +11,18 @@ public class Enanos
         this.vida = vida;
     } 
     
+    public string Nombre
+    {
+        get => nombre;
+    }
+
     public double Vida
     {
         get => vida;
         set => vida = value;
     }
 
+    
     public double ObtenerValorDeAtaque()
     {
         double valorAtaque = 0;
@@ -63,8 +69,7 @@ public class Enanos
     
     public void RecibirAtaqueDeEnano(Enanos enano)
     {
-        Vida -= enano.ObtenerValorDeAtaque();
-        Vida += (this.ObtenerValorDeDefensa()/ 100);
+        Vida -= enano.ObtenerValorDeAtaque() * this.ObtenerValorDeDefensa() / 100;
         if (Vida <= 0)
         {
             Console.WriteLine($"{nombre} ha muerto");
@@ -72,8 +77,7 @@ public class Enanos
     }
     public void RecibirAtaqueDeElfo(Elfo elfo)
     {
-        Vida -= elfo.ObtenerValorDeAtaque;
-        Vida += (this.ObtenerValorDeDefensa() / 100);
+        Vida -= elfo.ObtenerValorDeAtaque() * this.ObtenerValorDeDefensa() / 100;
         if (Vida <= 0)
         {
             Console.WriteLine($"{nombre} ha muerto");
@@ -82,7 +86,7 @@ public class Enanos
     
     public void RecibirAtaqueDeMago(Mago mago)
     {
-        Vida -= mago.ObtenerValorDeAtaque;
+        Vida -= mago.ObtenerValorDeAtaque() * this.ObtenerValorDeDefensa()/100;
         Vida += (this.ObtenerValorDeDefensa()/ 100);
         if (Vida <= 0)
         {

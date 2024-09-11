@@ -52,7 +52,7 @@ public class Elfo
         }
     }
 
-    public void RecibirAtaqueEnano(Enano enanete)
+    public void RecibirAtaqueEnano(Enanos enanete)
     {
         Vida -= enanete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
 
