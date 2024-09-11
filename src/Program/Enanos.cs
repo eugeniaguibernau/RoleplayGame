@@ -1,5 +1,3 @@
-namespace Program;
-
 public class Enanos
 {
     public Enanos(string nombre, List<Elementos> elementos, double vida)
@@ -20,9 +18,20 @@ public class Enanos
     public double Vida
     {
         get => vida;
-        set => vida = value; //NO PERMITIR QUE SEA MENOR A 0
-    }
+        set
+        {
+            if (vida + value <= 100) //NO PERMITIR QUE SEA MENOR A 0
+            {
+                vida = value;
+            }
+            else
+            {
+                vida = 100;
+            }
 
+
+        } 
+    }
 
     public void Curar()
     {
@@ -63,7 +72,7 @@ public class Enanos
     public void RecibirAtaqueDeElfo(Elfo elfo)
     {
         Vida -= elfo.ObtenerValorDeAtaque;
-        vida += (this.ObtenerValorDefensa / 100);
+        vida += (this.ObtenerValorDeDefensa() / 100);
         if (Vida <= 0)
         {
             Console.WriteLine($"{this.nombre} ha muerto");
@@ -73,6 +82,20 @@ public class Enanos
     public void RecibirAtaqueDeMago(Mago mago)
     {
         Vida -= mago.ObtenerValorDeAtaque;
-        vida += (this.ObtenerValorDefensa / 100);
+        vida += (this.ObtenerValorDeDefensa()/ 100);
+        if (Vida <= 0)
+        {
+            Console.WriteLine($"{this.nombre} ha muerto");
+        }
+    }
+    
+    public void RecibirAtaqueDeMago(Enanos enano)
+    {
+        Vida -= enano.ObtenerValorDeAtaque();
+        vida += (this.ObtenerValorDeDefensa()/ 100);
+        if (Vida <= 0)
+        {
+            Console.WriteLine($"{this.nombre} ha muerto");
+        }
     }
 }
