@@ -1,5 +1,3 @@
-namespace Program;
-
 public class Elfo
 {
     private string nombre;
@@ -67,7 +65,7 @@ public class Elfo
     public double ObtenerValorDeAtaque()
     {
         double total = 0;
-        foreach (Elemento item in listaItems)
+        foreach (Elementos item in listaItems)
         {
             total += item.Ataque;
         }
@@ -77,7 +75,7 @@ public class Elfo
     public double ObtenerValorDefensa()
     {
         double total = 0;
-        foreach (Elemento item in listaItems)
+        foreach (Elementos item in listaItems)
         {
             total += item.Defensa;
         }
@@ -91,7 +89,7 @@ public class Elfo
         Console.WriteLine($" +10 puntos de vida. \n Salud de {Nombre}: {Vida}");
     }
 
-    public void AgregarItem(Elemento item)
+    public void AgregarItem(Elementos item)
     {
         if (!listaItems.Contains(item))
         {
@@ -101,7 +99,7 @@ public class Elfo
         
     }
 
-    public void QuitarItem(Elemento item)
+    public void QuitarItem(Elementos item)
     {
         if (listaItems.Contains(item))
         {
