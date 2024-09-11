@@ -7,35 +7,27 @@ public class Enanos
         this.vida = vida;
     }
 
-    
     private string nombre;
-    
     private List<Elementos> elementos;
-
-    private double vida;
-
-   
+    
+    private double vida; 
     public double Vida
     {
         get => vida;
-        set
-        {
-            if (vida + value <= 100) //NO PERMITIR QUE SEA MENOR A 0
-            {
-                vida = value;
-            }
-            else
-            {
-                vida = 100;
-            }
-
-
-        } 
+        set => vida = value;
     }
 
+    
     public void Curar()
     {
-        //CURARSE A SI MISMO
+        if (Vida + 50 <= 100)
+        {
+            vida += 50;
+        }
+        else
+        {
+            vida = 100;
+        }
     }
 
     public double ObtenerValorDeAtaque()
@@ -69,6 +61,7 @@ public class Enanos
     {
         elementos.Remove(elemento);
     }
+    
     public void RecibirAtaqueDeElfo(Elfo elfo)
     {
         Vida -= elfo.ObtenerValorDeAtaque;
