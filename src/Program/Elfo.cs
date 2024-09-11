@@ -36,9 +36,9 @@ public class Elfo
 
     public void RecibirAtaqueMago(Mago maguete)
     {
-            vida -= maguete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa()/100;
+            Vida -= maguete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa()/100;
 
-            if (this.vida <= 0)
+            if (Vida <= 0)
             {
                 Console.WriteLine($"Tu Elfo, {Nombre} fue ejecutado y despedazado vilmente por {maguete.Nombre}.");
             }
@@ -46,9 +46,9 @@ public class Elfo
 
     public void RecibirAtaqueElfo(Elfo elfete)
     {
-        vida -= elfete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
+        Vida -= elfete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
 
-        if (this.vida <= 0)
+        if (Vida <= 0)
         {
             Console.WriteLine($"Tu Elfo, {Nombre} fue ejecutado y despedazado vilmente por {elfete.Nombre}.");
         }
@@ -56,9 +56,9 @@ public class Elfo
 
     public void RecibirAtaqueEnano(Enano enanete)
     {
-        vida -= enanete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
+        Vida -= enanete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
 
-        if (this.vida <= 0)
+        if (Vida <= 0)
         {
             Console.WriteLine($"Tu Elfo, {Nombre} fue ejecutado y despedazado vilmente por {enanete.Nombre}.");
         }
@@ -87,7 +87,7 @@ public class Elfo
 
     public void Curar()
     {
-        this.vida += 10;
+        Vida += 10;
         Console.WriteLine($" +10 puntos de vida. \n Salud de {Nombre}: {Vida}");
     }
 
@@ -96,7 +96,7 @@ public class Elfo
         if (!listaItems.Contains(item))
         {
             listaItems.Add(item);
-            Console.WriteLine($"{item.Nombre} fue agregado al inventario de {this.Nombre}.");
+            Console.WriteLine($"{item.Nombre} fue agregado al inventario de {Nombre}.");
         }
         
     }
@@ -106,7 +106,7 @@ public class Elfo
         if (listaItems.Contains(item))
         {
             listaItems.Remove(item);
-            Console.WriteLine($"{item.Nombre} fue quitado del inventario de {this.Nombre}.");
+            Console.WriteLine($"{item.Nombre} fue quitado del inventario de {Nombre}.");
         }
     }
 }
