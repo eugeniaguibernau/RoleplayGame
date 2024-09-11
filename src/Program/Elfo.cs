@@ -8,7 +8,6 @@ public class Elfo
     private List<Elementos> listaItems;
     
     private double vida = 100;
-
     public double Vida
     {
         get { return vida; }
@@ -20,6 +19,12 @@ public class Elfo
             }
             vida = value;
         }
+    }
+
+    public Elfo(string nombre, double vida)
+    {
+        this.Nombre = nombre;
+        this.Vida = vida;
     }
 
     public void RecibirAtaqueMago(Mago maguete)
