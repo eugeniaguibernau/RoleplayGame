@@ -1,33 +1,20 @@
 public class Enanos
 {
+    private string nombre;
+    private List<Elementos> elementos;
+    private double vida; 
+    
     public Enanos(string nombre, List<Elementos> elementos, double vida)
     {
         this.nombre = nombre;
         this.elementos = elementos;
         this.vida = vida;
-    }
-
-    private string nombre;
-    private List<Elementos> elementos;
+    } 
     
-    private double vida; 
     public double Vida
     {
         get => vida;
         set => vida = value;
-    }
-
-    
-    public void Curar()
-    {
-        if (Vida + 50 <= 100)
-        {
-            vida += 50;
-        }
-        else
-        {
-            vida = 100;
-        }
     }
 
     public double ObtenerValorDeAtaque()
@@ -51,7 +38,7 @@ public class Enanos
 
         return valorDefensa;
     }
-
+    
     public void AgregarElemento(Elementos elemento)
     {
         elementos.Add(elemento);
@@ -61,34 +48,45 @@ public class Enanos
     {
         elementos.Remove(elemento);
     }
+
+    public void Curar()
+    {
+        if (Vida + 50 <= 100)
+        {
+            vida += 50;
+        }
+        else
+        {
+            vida = 100;
+        }
+    }
     
+    public void RecibirAtaqueDeEnano(Enanos enano)
+    {
+        Vida -= enano.ObtenerValorDeAtaque();
+        Vida += (this.ObtenerValorDeDefensa()/ 100);
+        if (Vida <= 0)
+        {
+            Console.WriteLine($"{nombre} ha muerto");
+        }
+    }
     public void RecibirAtaqueDeElfo(Elfo elfo)
     {
         Vida -= elfo.ObtenerValorDeAtaque;
-        vida += (this.ObtenerValorDeDefensa() / 100);
+        Vida += (this.ObtenerValorDeDefensa() / 100);
         if (Vida <= 0)
         {
-            Console.WriteLine($"{this.nombre} ha muerto");
+            Console.WriteLine($"{nombre} ha muerto");
         }
     }
     
     public void RecibirAtaqueDeMago(Mago mago)
     {
         Vida -= mago.ObtenerValorDeAtaque;
-        vida += (this.ObtenerValorDeDefensa()/ 100);
+        Vida += (this.ObtenerValorDeDefensa()/ 100);
         if (Vida <= 0)
         {
-            Console.WriteLine($"{this.nombre} ha muerto");
-        }
-    }
-    
-    public void RecibirAtaqueDeMago(Enanos enano)
-    {
-        Vida -= enano.ObtenerValorDeAtaque();
-        vida += (this.ObtenerValorDeDefensa()/ 100);
-        if (Vida <= 0)
-        {
-            Console.WriteLine($"{this.nombre} ha muerto");
+            Console.WriteLine($"{nombre} ha muerto");
         }
     }
 }
