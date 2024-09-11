@@ -13,11 +13,18 @@ public class Elfo
         get { return vida; }
         set
         {
-            if (value > vida)
+            if (value < 0)
             {
                 vida = 0;
             }
-            vida = value;
+            else if (value > 100)
+            {
+                vida = 100;
+            }
+            else
+            {
+                vida = value;
+            }
         }
     }
 
