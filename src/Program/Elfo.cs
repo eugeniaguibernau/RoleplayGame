@@ -1,11 +1,22 @@
 public class Elfo
 {
     private string nombre;
-    private double vida = 100;
-    private List<Elementos> listaItems = new List<Elementos>();
-    
-    public string Nombre { get => nombre; set => this.nombre = value; }
-    
+    private double vida;
+    private List<Elementos> elementos;
+
+    public Elfo(string nombre, List<Elementos> elementos, double vida)
+    {
+        this.Nombre = nombre;
+        this.Elementos = elementos;
+        this.Vida = vida;
+    }
+
+    public string Nombre
+    {
+        get => nombre;
+        set => this.nombre = value;
+    }
+
     public double Vida
     {
         get { return vida; }
@@ -26,22 +37,20 @@ public class Elfo
         }
     }
 
-    // Método constructor
-    public Elfo(string nombre, double vida)
+    public List<Elementos> Elementos
     {
-        this.Nombre = nombre;
-        this.Vida = vida;
+        get => elementos;
+        set => this.elementos = value;
     }
 
-    // Métodos de recepción de ataque
     public void RecibirAtaqueMago(Mago maguete)
     {
-            Vida -= maguete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa()/100;
+        Vida -= maguete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
 
-            if (Vida <= 0)
-            {
-                Console.WriteLine($"Tu Elfo, {Nombre} fue ejecutado y despedazado vilmente por {maguete.Nombre}.");
-            }
+        if (Vida <= 0)
+        {
+            Console.WriteLine($"Tu Elfo, {Nombre} fue ejecutado y despedazado vilmente por {maguete.Nombre}.");
+        }
     }
 
     public void RecibirAtaqueElfo(Elfo elfete)
@@ -64,21 +73,21 @@ public class Elfo
         }
     }
 
-    // Métodos para obtener el valor de ataque y defensa 
     public double ObtenerValorDeAtaque()
     {
         double total = 0;
-        foreach (Elementos item in listaItems)
+        foreach (Elementos item in elementos)
         {
             total += item.Ataque;
         }
 
         return total;
     }
+
     public double ObtenerValorDefensa()
     {
         double total = 0;
-        foreach (Elementos item in listaItems)
+        foreach (Elementos item in elementos)
         {
             total += item.Defensa;
         }
@@ -86,28 +95,26 @@ public class Elfo
         return total;
     }
 
-    // Métodos para curar, agregar y quitar ítems
     public void Curar()
     {
         Vida += 10;
         Console.WriteLine($" +10 puntos de vida. \n Salud de {Nombre}: {Vida}");
     }
 
-    public void AgregarItem(Elementos item)
+    public void AgregarElemento(Elementos item)
     {
-        if (!listaItems.Contains(item))
+        if (!elementos.Contains(item))
         {
-            listaItems.Add(item);
+            elementos.Add(item);
             Console.WriteLine($"{item.Nombre} fue agregado al inventario de {Nombre}.");
         }
-        
     }
 
     public void QuitarItem(Elementos item)
     {
-        if (listaItems.Contains(item))
+        if (elementos.Contains(item))
         {
-            listaItems.Remove(item);
+            elementos.Remove(item);
             Console.WriteLine($"{item.Nombre} fue quitado del inventario de {Nombre}.");
         }
     }
