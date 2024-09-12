@@ -1,5 +1,3 @@
-namespace Program;
-
 public class LibroMagico
 {
     private List<Hechizos> listaHechizos;
@@ -19,8 +17,9 @@ public class LibroMagico
         double poderTotal = 0;
         foreach (Hechizos hechizo in listaHechizos)
         {
-            poderTotal += hechizo.Ataque;  // Sumar el poder de ataque de cada hechizo
+            poderTotal += hechizo.Ataque; // Sumar el poder de ataque de cada hechizo
         }
+
         return poderTotal;
     }
 }
