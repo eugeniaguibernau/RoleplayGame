@@ -82,7 +82,7 @@ public class EnanosTest
         // Mago
         Elementos Elemento1Mago = new Elementos("Báculo", 20, 1, "Mágico");
         Elementos Elemento2Mago = new Elementos("Escudo", 2, 8, "yqs");
-        Mago MagoAtacante = new Mago("Mago1", new List<Elementos> { Elemento1Mago }, 100);
+        Mago MagoAtacante = new Mago("Mago1", new List<Elementos> { Elemento1Mago }, new List<Hechizos>(), 100);
         MagoAtacante.AgregarElemento(Elemento2Mago);
 
         // Mago ataca al enano

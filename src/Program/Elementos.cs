@@ -7,33 +7,34 @@ public class Elementos
 
     public Elementos(string nombre, double ataque, double defensa, string tipo)
     {
-        this.nombre = nombre;
-        this.ataque = ataque;
-        this.defensa = defensa;
-        this.tipo = tipo;
+        this.Nombre = nombre;
+        this.Ataque = ataque;
+        this.Defensa = defensa;
+        this.Tipo = tipo;
     }
 
+    // Getters y Setters
     public string Nombre
     {
-        get { return nombre; }
-        set { nombre = value; }
+        get => nombre;
+        set => nombre = value;
     }
 
     public double Ataque
     {
-        get { return ataque; }
-        set { ataque = value; }
+        get => ataque;
+        set => ataque = value;
     }
 
     public double Defensa
     {
-        get { return defensa; }
-        set { defensa = value; }
+        get => defensa;
+        set => defensa = value;
     }
 
     public string Tipo
     {
-        get { return tipo; }
-        set { tipo = value; }
+        get => tipo;
+        set => tipo = value;
     }
 }

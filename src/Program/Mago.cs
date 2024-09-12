@@ -1,34 +1,40 @@
 public class Mago
 {
     private string nombre;
-    public string Nombre { get; set; }
-
-
     private double vida;
-    public double Vida { get; set; }
-
     private List<Elementos> elementos;
+    private List<Hechizos> libroDeHechizos;
 
-
-    private LibroMagico libroDeHechizos;
-    public LibroMagico LibroDeHechizos => libroDeHechizos;
-
-
-    public Mago(string nombre, List<Elementos> elementos, double vida)
+    public Mago(string nombre, List<Elementos> elementos, List<Hechizos> libroDeHechizos, double vida)
     {
-        Nombre = nombre;
-        this.elementos = elementos;
-        Vida = vida;
+        this.nombre = nombre;
+        this.elementos = elementos ?? new List<Elementos>();
+        this.vida = vida;
+        this.libroDeHechizos = libroDeHechizos ?? new List<Hechizos>();
     }
 
-    public string ObtenerNombre() // Metodo para devolver el nombre del Magucho.
+    public string Nombre
     {
-        return Nombre;
+        get => nombre;
+        set => nombre = value;
     }
 
-    public double ObtenerVida() // Metodo para devolver el valor de vida del Magucho.
+    public double Vida
     {
-        return Vida;
+        get => vida;
+        set => vida = value;
+    }
+
+    public List<Elementos> Elementos
+    {
+        get => elementos;
+        set => elementos = value;
+    }
+
+    public List<Hechizos> LibroDeHechizos
+    {
+        get => libroDeHechizos;
+        set => libroDeHechizos = value;
     }
 
     public double ObtenerValorDefensa()
@@ -42,7 +48,6 @@ public class Mago
         return defensa;
     }
 
-
     public void RecibirAtaqueEnano(Enanos enano)
     {
         Vida -= enano.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
@@ -52,11 +57,12 @@ public class Mago
             Console.WriteLine(
                 $"Tu mago {Nombre} ha recibido {enano.ObtenerValorDeAtaque()} puntos de damage y ha muerto.");
         }
-
-        Console.WriteLine(
-            $"Tu mago {Nombre} ha recibido {enano.ObtenerValorDeAtaque()} puntos de damage y le quedan {Vida} puntos de vida. Ojo con Gaspar!");
+        else
+        {
+            Console.WriteLine(
+                $"Tu mago {Nombre} ha recibido {enano.ObtenerValorDeAtaque()} puntos de damage y le quedan {Vida} puntos de vida. Ojo con Gaspar!");
+        }
     }
-
 
     public void RecibirAtaqueElfo(Elfo elfo)
     {
@@ -67,50 +73,57 @@ public class Mago
             Console.WriteLine(
                 $"Tu mago {Nombre} ha recibido {elfo.ObtenerValorDeAtaque()} puntos de damage y ha muerto.");
         }
-
-        Console.WriteLine(
-            $"Tu mago {Nombre} ha recibido {elfo.ObtenerValorDeAtaque()} puntos de damage y le quedan {Vida} puntos de vida. Ojo con Gaspar!");
+        else
+        {
+            Console.WriteLine(
+                $"Tu mago {Nombre} ha recibido {elfo.ObtenerValorDeAtaque()} puntos de damage y le quedan {Vida} puntos de vida. Ojo con Gaspar!");
+        }
     }
-
 
     public void RecibirAtaqueMago(Mago mago)
     {
-        Vida -= this.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
+        Vida -= mago.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
         if (Vida <= 0)
         {
             Vida = 0;
             Console.WriteLine(
-                $"Tu mago {Nombre} ha recibido {this.ObtenerValorDeAtaque()} puntos de damage y ha muerto.");
+                $"Tu mago {Nombre} ha recibido {mago.ObtenerValorDeAtaque()} puntos de damage y ha muerto.");
         }
-
-        Console.WriteLine(
-            $"Tu mago {Nombre} ha recibido {this.ObtenerValorDeAtaque()} puntos de damage y le quedan {Vida} puntos de vida. Ojo con Gaspar!");
+        else
+        {
+            Console.WriteLine(
+                $"Tu mago {Nombre} ha recibido {mago.ObtenerValorDeAtaque()} puntos de damage y le quedan {Vida} puntos de vida. Ojo con Gaspar!");
+        }
     }
-
 
     public void Curar()
     {
-        if (Vida <= Vida - 15)
+        if (Vida > 0)
         {
             Vida += 15;
             Console.WriteLine($"{Nombre} ha recuperado {15} puntos de salud. Enhorabuena!, pero ojito con Gaspar!");
         }
-
-        Console.WriteLine($"No puedes curarte, pues ya tienas mucha vida.");
+        else
+        {
+            Console.WriteLine($"No puedes curarte, pues ya tienes mucha vida.");
+        }
     }
-
 
     public double ObtenerValorDeAtaque()
     {
         double poderItems = 0;
         foreach (Elementos item in elementos)
         {
-            poderItems += item.Ataque; // Suma el valor de ataque de cada ítem
+            poderItems += item.Ataque;
         }
 
-        double poderHechizos = LibroDeHechizos.ObtenerPoderTotal(); // El poder sumado de todos los hechizos.
+        double poderHechizos = 0;
+        foreach (Hechizos hechizo in libroDeHechizos)
+        {
+            poderHechizos += hechizo.Ataque;
+        }
 
-        return poderItems + poderHechizos; // Aca estaria retornando el poder total maximo que lanza el mago.
+        return poderItems + poderHechizos;
     }
 
     public void AgregarElemento(Elementos elemento)

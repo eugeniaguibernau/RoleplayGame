@@ -4,36 +4,41 @@ public class Enanos
     private List<Elementos> elementos;
     private double vida;
 
-    //Constructor
     public Enanos(string nombre, List<Elementos> elementos, double vida)
     {
-        this.nombre = nombre;
-        this.elementos = elementos;
-        this.vida = vida;
+        this.Nombre = nombre;
+        this.Elementos = elementos;
+        this.Vida = vida;
     }
 
     public string Nombre
     {
         get => nombre;
+        set => this.nombre = value;
     }
 
     public double Vida
     {
         get => vida;
-        set //Para que la vida nunca quede negativa con los ataques
+        set
         {
-            if (vida >= 0)
+            if (value < 0)
             {
-                vida = value;
+                vida = 0;
             }
             else
             {
-                vida = 0;
+                vida = value;
             }
         }
     }
 
-    //Obtener valor total de ataque
+    public List<Elementos> Elementos
+    {
+        get => elementos;
+        set => this.elementos = value;
+    }
+
     public double ObtenerValorDeAtaque()
     {
         double valorAtaque = 0;
@@ -45,7 +50,6 @@ public class Enanos
         return valorAtaque;
     }
 
-    //Obtener valor total de defensa
     public double ObtenerValorDeDefensa()
     {
         double valorDefensa = 0;
@@ -57,38 +61,40 @@ public class Enanos
         return valorDefensa;
     }
 
-    //Agregar un elemento a la lista de elementos
     public void AgregarElemento(Elementos elemento)
     {
-        elementos.Add(elemento);
+        if (!elementos.Contains(elemento))
+        {
+            elementos.Add(elemento);
+        }
     }
 
-    //Sacar un elemento de la lista de elementos
     public void QuitarElemento(Elementos elemento)
     {
-        elementos.Remove(elemento);
+        if (elementos.Contains(elemento))
+        {
+            elementos.Remove(elemento);
+        }
     }
 
-    //Personaje se cura a si mismo (se aumenta 10 puntos de vida)
     public void Curar()
     {
         if (Vida + 10 <= 100)
         {
-            vida += 10;
+            Vida += 10;
         }
         else
         {
-            vida = 100;
+            Vida = 100;
         }
     }
 
-    //Recibir ataques (de otros enanos, de un elfo o de un mago)
     public void RecibirAtaqueDeEnano(Enanos enano)
     {
         Vida -= enano.ObtenerValorDeAtaque() * this.ObtenerValorDeDefensa() / 100;
         if (Vida <= 0)
         {
-            Console.WriteLine($"{nombre} ha muerto");
+            Console.WriteLine($"{Nombre} ha muerto");
         }
     }
 
@@ -97,7 +103,7 @@ public class Enanos
         Vida -= elfo.ObtenerValorDeAtaque() * this.ObtenerValorDeDefensa() / 100;
         if (Vida <= 0)
         {
-            Console.WriteLine($"{nombre} ha muerto");
+            Console.WriteLine($"{Nombre} ha muerto");
         }
     }
 
@@ -107,7 +113,7 @@ public class Enanos
         Vida += (this.ObtenerValorDeDefensa() / 100);
         if (Vida <= 0)
         {
-            Console.WriteLine($"{nombre} ha muerto");
+            Console.WriteLine($"{Nombre} ha muerto");
         }
     }
 }
