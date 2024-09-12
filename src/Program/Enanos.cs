@@ -2,16 +2,16 @@ public class Enanos
 {
     private string nombre;
     private List<Elementos> elementos;
-    private double vida; 
-    
+    private double vida;
+
     //Constructor
     public Enanos(string nombre, List<Elementos> elementos, double vida)
     {
         this.nombre = nombre;
         this.elementos = elementos;
         this.vida = vida;
-    } 
-    
+    }
+
     public string Nombre
     {
         get => nombre;
@@ -20,7 +20,7 @@ public class Enanos
     public double Vida
     {
         get => vida;
-        set  //Para que la vida nunca quede negativa con los ataques
+        set //Para que la vida nunca quede negativa con los ataques
         {
             if (vida >= 0)
             {
@@ -44,7 +44,7 @@ public class Enanos
 
         return valorAtaque;
     }
-    
+
     //Obtener valor total de defensa
     public double ObtenerValorDeDefensa()
     {
@@ -56,7 +56,7 @@ public class Enanos
 
         return valorDefensa;
     }
-    
+
     //Agregar un elemento a la lista de elementos
     public void AgregarElemento(Elementos elemento)
     {
@@ -81,7 +81,7 @@ public class Enanos
             vida = 100;
         }
     }
-    
+
     //Recibir ataques (de otros enanos, de un elfo o de un mago)
     public void RecibirAtaqueDeEnano(Enanos enano)
     {
@@ -91,6 +91,7 @@ public class Enanos
             Console.WriteLine($"{nombre} ha muerto");
         }
     }
+
     public void RecibirAtaqueDeElfo(Elfo elfo)
     {
         Vida -= elfo.ObtenerValorDeAtaque() * this.ObtenerValorDeDefensa() / 100;
@@ -99,11 +100,11 @@ public class Enanos
             Console.WriteLine($"{nombre} ha muerto");
         }
     }
-    
+
     public void RecibirAtaqueDeMago(Mago mago)
     {
-        Vida -= mago.ObtenerValorDeAtaque() * this.ObtenerValorDeDefensa()/100;
-        Vida += (this.ObtenerValorDeDefensa()/ 100);
+        Vida -= mago.ObtenerValorDeAtaque() * this.ObtenerValorDeDefensa() / 100;
+        Vida += (this.ObtenerValorDeDefensa() / 100);
         if (Vida <= 0)
         {
             Console.WriteLine($"{nombre} ha muerto");
