@@ -1,8 +1,15 @@
 public class Elfo
 {
     private string nombre;
-    private double vida = 100;
+    private double vida;
     private List<Elementos> elementos;
+
+    public Elfo(string nombre, List<Elementos> elementos, double vida)
+    {
+        this.Nombre = nombre;
+        this.Elementos = elementos;
+        this.Vida = vida;
+    }
 
     public string Nombre
     {
@@ -30,11 +37,10 @@ public class Elfo
         }
     }
 
-    public Elfo(string nombre, List<Elementos> elementos, double vida)
+    public List<Elementos> Elementos
     {
-        this.nombre = nombre;
-        this.elementos = elementos;
-        this.vida = vida;
+        get => elementos;
+        set => this.elementos = value;
     }
 
     public void RecibirAtaqueMago(Mago maguete)
@@ -67,7 +73,6 @@ public class Elfo
         }
     }
 
-    // Métodos para obtener el valor de ataque y defensa 
     public double ObtenerValorDeAtaque()
     {
         double total = 0;
@@ -90,7 +95,6 @@ public class Elfo
         return total;
     }
 
-    // Métodos para curar, agregar y quitar ítems
     public void Curar()
     {
         Vida += 10;
