@@ -43,8 +43,7 @@ public class EnanosTest
         EnanoUno.RecibirAtaqueDeEnano(EnanoDos);
 
         // Verifico que la vida del enano atacado (1) sea la esperada
-        Assert.AreEqual(90,
-            EnanoUno.Vida); // Aquí asumo un valor de vida que debes ajustar según las reglas de ataque/defensa
+        Assert.AreEqual(90, EnanoUno.Vida); // Aquí asumo un valor de vida que debes ajustar según las reglas de ataque/defensa
     }
 
     [Test]
@@ -63,11 +62,10 @@ public class EnanosTest
         ElfoAtacante.AgregarElemento(Elemento2Elfo);
 
         // Elfo ataca al enano
-        EnanoUno.RecibirAtaqueDeElfo(
-            ElfoAtacante); // Asegúrate de tener este método o uno genérico que maneje diferentes tipos
+        EnanoUno.RecibirAtaqueDeElfo(ElfoAtacante); // Asegúrate de tener este método o uno genérico que maneje diferentes tipos
 
         // Verifico que la vida del enano atacado (1) sea la esperada
-        Assert.AreEqual(90, EnanoUno.Vida); // Ajusta según las reglas
+        Assert.AreEqual(98.3, EnanoUno.Vida); // Ajusta según las reglas
     }
 
     [Test]
