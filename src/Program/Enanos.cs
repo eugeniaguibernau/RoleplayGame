@@ -4,6 +4,7 @@ public class Enanos
     private List<Elementos> elementos;
     private double vida; 
     
+    //Constructor
     public Enanos(string nombre, List<Elementos> elementos, double vida)
     {
         this.nombre = nombre;
@@ -19,7 +20,7 @@ public class Enanos
     public double Vida
     {
         get => vida;
-        set
+        set  //Para que la vida nunca quede negativa con los ataques
         {
             if (vida >= 0)
             {
@@ -32,7 +33,7 @@ public class Enanos
         }
     }
 
-    
+    //Obtener valor total de ataque
     public double ObtenerValorDeAtaque()
     {
         double valorAtaque = 0;
@@ -44,6 +45,7 @@ public class Enanos
         return valorAtaque;
     }
     
+    //Obtener valor total de defensa
     public double ObtenerValorDeDefensa()
     {
         double valorDefensa = 0;
@@ -55,16 +57,19 @@ public class Enanos
         return valorDefensa;
     }
     
+    //Agregar un elemento a la lista de elementos
     public void AgregarElemento(Elementos elemento)
     {
         elementos.Add(elemento);
     }
 
+    //Sacar un elemento de la lista de elementos
     public void QuitarElemento(Elementos elemento)
     {
         elementos.Remove(elemento);
     }
 
+    //Personaje se cura a si mismo (se aumenta 10 puntos de vida)
     public void Curar()
     {
         if (Vida + 10 <= 100)
@@ -77,6 +82,7 @@ public class Enanos
         }
     }
     
+    //Recibir ataques (de otros enanos, de un elfo o de un mago)
     public void RecibirAtaqueDeEnano(Enanos enano)
     {
         Vida -= enano.ObtenerValorDeAtaque() * this.ObtenerValorDeDefensa() / 100;
