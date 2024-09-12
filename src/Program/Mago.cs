@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 
-namespace Program;
 
 public class Mago
 {
@@ -11,12 +10,10 @@ public class Mago
     private double vida;
     public double Vida { get; set; }
 
-    private List<Elemento> ListaItems;
+    private List<Elementos> ListaItems;
 
+    private List<Hechizos> LibroMagico;
 
-    private LibroMagico libroDeHechizos;
-    public LibroMagico LibroDeHechizos => libroDeHechizos;
-    
 
     public Mago(string nombre, double vida)
     {
@@ -24,24 +21,11 @@ public class Mago
         Vida = vida;
     }
     
-    
 
-
-    public string ObtenerNombre()             // Metodo para devolver el nombre del Magucho.
-    {
-        return Nombre;
-        
-    }
-
-    public double ObtenerVida()               // Metodo para devolver el valor de vida del Magucho.
-    {
-        return Vida;
-    }
-
-    public double ObtenerValorDefensa()
+    public double ObtenerValorDefensa()               // Obtener valor de defensa total.
     {
         double defensa = 0;
-        foreach (Elemento item in ListaItems)
+        foreach (Elementos item in ListaItems)
         {
             defensa += item.Defensa;
         }
@@ -50,7 +34,7 @@ public class Mago
     }
     
 
-    public void RecibirAtaqueEnano(Enano enano)
+    public void RecibirAtaqueEnano(Enanos enano)
     {
         Vida -= enano.ObtenerValorDeAtaque() * this.ObtenerValorDefensa()/100;
         if (Vida <= 0)
@@ -88,27 +72,78 @@ public class Mago
     
     public void Curar()                                                
     {
-        if (Vida <= Vida - 15)
+        if (Vida < 200)  // Vida maxima, digamos que 200.
         {
             Vida += 15;
-            Console.WriteLine($"{Nombre} ha recuperado {15} puntos de salud. Enhorabuena!, pero ojito con Gaspar!");
+            Console.WriteLine($"{Nombre} ha recuperado {15} puntos de salud.");
         }
-        
-        Console.WriteLine($"No puedes curarte, pues ya tienas mucha vida.");
+        else
+        {
+            Console.WriteLine($"No puedes curarte, pues ya tienes mucha vida.");
+        }
+    }
+    
+    
+    public void AgregarHechizo(Hechizos hechizo)
+    {
+        if (!LibroMagico.Contains(hechizo))
+        {
+            LibroMagico.Add(hechizo);
+            Console.WriteLine($"{Nombre} ha aprendido el hechizo {hechizo.Nombre}.");
+        }
+    }
+    
+    public void QuitarHechizo(Hechizos hechizo)
+    {
+        if (LibroMagico.Contains(hechizo))
+        {
+            ListaItems.Remove(hechizo);
+            Console.WriteLine($"{Nombre} ha olvidado el hechizo {hechizo.Nombre}.");
+        }
+    }
+
+    public double ObtenerPoderTotalHechizos()
+    {
+        double poderTotal = 0;
+        foreach (Hechizos hechizo in LibroMagico)
+        {
+            poderTotal += hechizo.Ataque;                       // Sumar el poder de ataque de cada hechizo
+        }
+        return poderTotal;
     }
     
 
     public double ObtenerValorDeAtaque()
     {
         double poderItems = 0;
-        foreach (Elemento item in ListaItems)
+        foreach (Elementos item in ListaItems)
         {
-            poderItems += item.Ataque;                                  // Suma el valor de ataque de cada ítem
+            poderItems += item.Ataque;                          // Suma el valor de ataque de cada ítem
         }
         
-        double poderHechizos = LibroDeHechizos.ObtenerPoderTotal();    // El poder sumado de todos los hechizos.
+        double poderHechizos = ObtenerPoderTotalHechizos();    // El poder sumado de todos los hechizos.
         
-        return poderItems + poderHechizos;                             // Aca estaria retornando el poder total maximo que lanza el mago.
+        return poderItems + poderHechizos;                     // Aca estaria retornando el poder total maximo que lanza el mago.
+    }
+
+    
+    
+    public void AgregarItem(Elementos item)                    // Metodos para agregar y quitar items
+    {
+        if (!ListaItems.Contains(item))
+        {
+            ListaItems.Add(item);
+            Console.WriteLine($"{item.Nombre} fue agregado al inventario de {Nombre}.");
+        }
+    }
+    
+    public void QuitarItem(Elementos item)
+    {
+        if (ListaItems.Contains(item))
+        {
+            ListaItems.Remove(item);
+            Console.WriteLine($"{item.Nombre} fue quitado del inventario de {Nombre}.");
+        }
     }
 
 }    

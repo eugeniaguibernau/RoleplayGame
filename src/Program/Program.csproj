@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="LibroMagico.cs" />
+  </ItemGroup>
+
 </Project>
