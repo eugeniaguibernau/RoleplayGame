@@ -50,6 +50,7 @@ public class EnanosTest
         double expectedVida = 100 - expectedDano;
         // Verifico que la vida del enano atacado (1) sea la esperada
         Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida));
+
     }
 
     [Test]
