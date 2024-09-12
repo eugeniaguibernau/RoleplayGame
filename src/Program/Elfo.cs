@@ -45,7 +45,8 @@ public class Elfo
 
     public void RecibirAtaqueMago(Mago maguete)
     {
-        Vida -= maguete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
+        double dano = Math.Max(maguete.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
+        Vida -= dano;
 
         if (Vida <= 0)
         {
@@ -55,7 +56,8 @@ public class Elfo
 
     public void RecibirAtaqueElfo(Elfo elfete)
     {
-        Vida -= elfete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
+        double dano = Math.Max(elfete.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
+        Vida -= dano;
 
         if (Vida <= 0)
         {
@@ -65,7 +67,8 @@ public class Elfo
 
     public void RecibirAtaqueEnano(Enanos enanete)
     {
-        Vida -= enanete.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
+        double dano = Math.Max(enanete.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
+        Vida -= dano;
 
         if (Vida <= 0)
         {
