@@ -28,7 +28,7 @@ public class EnanosTest
         enanoDos.AgregarElemento(elemento1Enano2);
         enanoDos.AgregarElemento(elemento2Enano2);
         //Verifico que se sumen las defensas de los elementos correctamente
-        Assert.That(enanoDos.ObtenerValorDeDefensa(), Is.EqualTo(10)); // Cambiado a Defensa
+        Assert.That(enanoDos.ObtenerValorDeDefensa(), Is.EqualTo(10)); 
     }
 
     [Test]
