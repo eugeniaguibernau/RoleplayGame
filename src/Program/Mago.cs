@@ -67,7 +67,6 @@ public class Mago
 
     public void RecibirAtaqueElfo(Elfo elfo)
     {
-        
         double dano = Math.Max(elfo.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
         Vida -= dano;
         if (Vida <= 0)
@@ -138,5 +137,15 @@ public class Mago
     public void QuitarElemento(Elementos elemento)
     {
         elementos.Remove(elemento);
+    }
+
+    public void AgregarHechizo(Hechizos hechizo)
+    {
+        libroDeHechizos.Add(hechizo);
+    }
+
+    public void QuitarHechizo(Hechizos hechizo)
+    {
+        libroDeHechizos.Remove(hechizo);
     }
 }
