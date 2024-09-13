@@ -50,7 +50,6 @@ public class EnanosTest
         double expectedVida = 100 - expectedDano;
         // Verifico que la vida del enano atacado (1) sea la esperada
         Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida));
-
     }
 
     [Test]
@@ -67,11 +66,12 @@ public class EnanosTest
         Elfo elfoAtacante = new Elfo("Elfo1", new List<Elementos> { elemento1Elfo }, 100);
         elfoAtacante.AgregarElemento(elemento2Elfo);
         // Elfo ataca al enano
-        enanoUno.RecibirAtaqueDeElfo(elfoAtacante); // Asegúrate de tener este método o uno genérico que maneje diferentes tipos
+        enanoUno.RecibirAtaqueDeElfo(
+            elfoAtacante); // Asegúrate de tener este método o uno genérico que maneje diferentes tipos
         double expectedDano = Math.Max(elfoAtacante.ObtenerValorDeAtaque() - enanoUno.ObtenerValorDeDefensa(), 0);
         double expectedVida = 100 - expectedDano;
         // Verifico que la vida del enano atacado (1) sea la esperada
-        Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida)); 
+        Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida));
     }
 
     [Test]

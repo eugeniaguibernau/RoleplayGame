@@ -91,7 +91,7 @@ public class Enanos
 
     public void RecibirAtaqueDeEnano(Enanos enano)
     {
-        double dano = Math.Max(enano.ObtenerValorDeAtaque() - this.ObtenerValorDeDefensa(), 0);
+        double dano = Math.Max(enano.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
         Vida -= dano;
         if (Vida <= 0)
         {
@@ -101,7 +101,7 @@ public class Enanos
 
     public void RecibirAtaqueDeElfo(Elfo elfo)
     {
-        double dano = Math.Max(elfo.ObtenerValorDeAtaque() - this.ObtenerValorDeDefensa(), 0);
+        double dano = Math.Max(elfo.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
         Vida -= dano;
         if (Vida <= 0)
         {
@@ -111,7 +111,7 @@ public class Enanos
 
     public void RecibirAtaqueDeMago(Mago mago)
     {
-        double dano = Math.Max(mago.ObtenerValorDeAtaque() - this.ObtenerValorDeDefensa(), 0);
+        double dano = Math.Max(mago.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
         Vida -= dano;
         if (Vida <= 0)
         {
