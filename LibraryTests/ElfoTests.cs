@@ -73,6 +73,26 @@ namespace LibraryTests
         }
 
         [Test]
+        public void TestEnanoAtacaElfo()
+        {
+            // Crear elfo
+            var elementoElfo2 = new Elementos("Pechera de hierro", 0, 10, "Protección");
+            var elfo2 = new Elfo("Elfo2", new List<Elementos> { elementoElfo2 }, 100);
+
+            // Crear enano
+            var elementoEnano = new Elementos("Tijera", 20, 0, "Herramienta");
+            var enano = new Enanos("Enano gordo", new List<Elementos> { elementoEnano }, 100);
+
+            // Enano ataca al elfo
+            elfo2.RecibirAtaqueEnano(enano);
+
+            // Verificar vida restante del elfo
+            double expectedDano = Math.Max(enano.ObtenerValorDeAtaque() - elfo2.ObtenerValorDefensa(), 0);
+            double expectedVida = 100 - expectedDano;
+            Assert.That(elfo2.Vida, Is.EqualTo(expectedVida));
+        }
+
+        [Test]
         public void TestElfoSeCura()
         {
             // Crear elfo con poca vida
