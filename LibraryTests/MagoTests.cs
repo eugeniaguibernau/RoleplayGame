@@ -102,5 +102,36 @@ namespace LibraryTests
             // Verificar que la vida aumentó correctamente (+15)
             Assert.That(magoDebil.Vida, Is.EqualTo(25));
         }
+        
+        [Test]
+        public void TestAgregarHechizo()
+        {
+            // Crear un mago sin hechizos
+            var mago = new Mago("Mago sin hechizos", new List<Elementos>(), new List<Hechizos>(), 100);
+    
+            // Crear un hechizo
+            var hechizo = new Hechizos("Queso", 30, 1, "Hechizo");
+    
+            // Agregar el hechizo al mago
+            mago.AgregarHechizo(hechizo);
+    
+            // Verificar que el hechizo fue agregado
+            Assert.That(mago.LibroDeHechizos.Count, Is.EqualTo(1));
+            Assert.That(mago.LibroDeHechizos[0].Nombre, Is.EqualTo("Queso"));
+        }
+
+        [Test]
+        public void TestQuitarHechizo()
+        {
+            // Crear un mago con un hechizo
+            var hechizo = new Hechizos("Bola de fraile", 30, 1, "Hechizo");
+            var mago = new Mago("Mago con hechizos", new List<Elementos>(), new List<Hechizos> { hechizo }, 100);
+    
+            // Quitar el hechizo del mago
+            mago.QuitarHechizo(hechizo);
+    
+            // Verificar que el hechizo fue removido
+            Assert.That(mago.LibroDeHechizos.Count, Is.EqualTo(0));
+        }
     }
 }
