@@ -46,7 +46,7 @@ public class EnanosTest
         enanoDos.AgregarElemento(elemento2Enano2);
         // Enano 2 ataca al enano 1
         enanoUno.RecibirAtaqueDeEnano(enanoDos);
-        double expectedDano = Math.Max(enanoDos.ObtenerValorDeAtaque() - enanoUno.ObtenerValorDeDefensa(), 0);
+        double expectedDano = CalcularDano(enanoDos, enanoUno);
         double expectedVida = 100 - expectedDano;
         // Verifico que la vida del enano atacado (1) sea la esperada
         Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida));
@@ -68,7 +68,7 @@ public class EnanosTest
         // Elfo ataca al enano
         enanoUno.RecibirAtaqueDeElfo(
             elfoAtacante); // Asegúrate de tener este método o uno genérico que maneje diferentes tipos
-        double expectedDano = Math.Max(elfoAtacante.ObtenerValorDeAtaque() - enanoUno.ObtenerValorDeDefensa(), 0);
+        double expectedDano = CalcularDano(elfoAtacante, enanoUno);
         double expectedVida = 100 - expectedDano;
         // Verifico que la vida del enano atacado (1) sea la esperada
         Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida));
@@ -89,7 +89,7 @@ public class EnanosTest
         magoAtacante.AgregarElemento(elemento2Mago);
         // Mago ataca al enano
         enanoUno.RecibirAtaqueDeMago(magoAtacante);
-        double expectedDano = Math.Max(magoAtacante.ObtenerValorDeAtaque() - enanoUno.ObtenerValorDeDefensa(), 0);
+        double expectedDano = CalcularDano(magoAtacante, enanoUno);
         double expectedVida = 100 - expectedDano;
         // Verifico que la vida del enano atacado (1) sea la esperada
         Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida)); // Ajusta según las reglas
@@ -104,4 +104,20 @@ public class EnanosTest
         enanoDebil.Curar();
         Assert.That(enanoDebil.Vida, Is.EqualTo(20));
     }
+
+    private double CalcularDano(Enanos enanoAtacante, Enanos enanoAtacado)
+    {
+        return Math.Max(enanoAtacante.ObtenerValorDeAtaque() - enanoAtacado.ObtenerValorDeDefensa(), 0);
+    }
+
+    private double CalcularDano(Elfo elfoAtacante, Enanos enanoAtacado)
+    {
+        return Math.Max(elfoAtacante.ObtenerValorDeAtaque() - enanoAtacado.ObtenerValorDeDefensa(), 0);
+    }
+
+    private double CalcularDano(Mago magoAtacante, Enanos enanoAtacado)
+    {
+        return Math.Max(magoAtacante.ObtenerValorDeAtaque() - enanoAtacado.ObtenerValorDeDefensa(), 0);
+    }
+    
 }
