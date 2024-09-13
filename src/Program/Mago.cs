@@ -50,7 +50,8 @@ public class Mago
 
     public void RecibirAtaqueEnano(Enanos enano)
     {
-        Vida -= enano.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
+        double dano = Math.Max(enano.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
+        Vida -= dano;
         if (Vida <= 0)
         {
             Vida = 0;
@@ -66,7 +67,9 @@ public class Mago
 
     public void RecibirAtaqueElfo(Elfo elfo)
     {
-        Vida -= elfo.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
+        
+        double dano = Math.Max(elfo.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
+        Vida -= dano;
         if (Vida <= 0)
         {
             Vida = 0;
@@ -82,7 +85,8 @@ public class Mago
 
     public void RecibirAtaqueMago(Mago mago)
     {
-        Vida -= mago.ObtenerValorDeAtaque() * this.ObtenerValorDefensa() / 100;
+        double dano = Math.Max(mago.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
+        Vida -= dano;
         if (Vida <= 0)
         {
             Vida = 0;
