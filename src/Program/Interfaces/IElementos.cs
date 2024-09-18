@@ -1,5 +1,4 @@
-public interface IElemento
+public interface IElementos
 {
-    double Ataque { get; }
-    double Defensa { get; }
+   string Nombre { get; set; }
 }
