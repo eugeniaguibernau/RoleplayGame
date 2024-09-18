@@ -1,4 +1,6 @@
-public class Enanos
+using Program.Interfaces;
+
+public class Enanos : IPersonaje
 {
     private string nombre;
     private double vida;
@@ -89,29 +91,9 @@ public class Enanos
         }
     }
 
-    public void RecibirAtaqueDeEnano(Enanos enano)
+    public void RecibirAtaque(IPersonaje personaje)
     {
-        double dano = Math.Max(enano.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
-        Vida -= dano;
-        if (Vida <= 0)
-        {
-            Console.WriteLine($"{Nombre} ha muerto");
-        }
-    }
-
-    public void RecibirAtaqueDeElfo(Elfo elfo)
-    {
-        double dano = Math.Max(elfo.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
-        Vida -= dano;
-        if (Vida <= 0)
-        {
-            Console.WriteLine($"{Nombre} ha muerto");
-        }
-    }
-
-    public void RecibirAtaqueDeMago(Mago mago)
-    {
-        double dano = Math.Max(mago.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
+        double dano = Math.Max(personaje.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
         Vida -= dano;
         if (Vida <= 0)
         {

@@ -26,7 +26,7 @@ namespace LibraryTests
             var mago = new Mago("Mago defensor", new List<Elementos> { elemento1 }, new List<Hechizos>(), 100);
 
             // Verificar que la defensa total es la suma correcta
-            Assert.That(mago.ObtenerValorDefensa(), Is.EqualTo(15));
+            Assert.That(mago.ObtenerValorDeDefensa(), Is.EqualTo(15));
         }
 
         [Test]
@@ -42,10 +42,10 @@ namespace LibraryTests
             var magoDefensor = new Mago("Mago defensor", new List<Elementos> { elementoDefensa }, new List<Hechizos>(), 100);
 
             // Mago atacante ataca al mago defensor
-            magoDefensor.RecibirAtaqueMago(magoAtacante);
+            magoDefensor.RecibirAtaque(magoAtacante);
 
             // Verificar vida restante
-            double expectedDano = Math.Max(magoAtacante.ObtenerValorDeAtaque() - magoDefensor.ObtenerValorDefensa(), 0);
+            double expectedDano = Math.Max(magoAtacante.ObtenerValorDeAtaque() - magoDefensor.ObtenerValorDeDefensa(), 0);
             double expectedVida = 100 - expectedDano;
             Assert.That(magoDefensor.Vida, Is.EqualTo(expectedVida));
         }
@@ -62,10 +62,10 @@ namespace LibraryTests
             var elfo = new Elfo("Elfo atacante", new List<Elementos> { elementoElfo }, 100);
 
             // Elfo ataca al mago
-            mago.RecibirAtaqueElfo(elfo);
+            mago.RecibirAtaque(elfo);
 
             // Verificar vida restante del mago
-            double expectedDano = Math.Max(elfo.ObtenerValorDeAtaque() - mago.ObtenerValorDefensa(), 0);
+            double expectedDano = Math.Max(elfo.ObtenerValorDeAtaque() - mago.ObtenerValorDeDefensa(), 0);
             double expectedVida = 100 - expectedDano;
             Assert.That(mago.Vida, Is.EqualTo(expectedVida));
         }
@@ -82,10 +82,10 @@ namespace LibraryTests
             var enano = new Enanos("Enano atacante", new List<Elementos> { elementoEnano }, 100);
 
             // Enano ataca al mago
-            mago.RecibirAtaqueEnano(enano);
+            mago.RecibirAtaque(enano);
 
             // Verificar vida restante del mago
-            double expectedDano = Math.Max(enano.ObtenerValorDeAtaque() - mago.ObtenerValorDefensa(), 0);
+            double expectedDano = Math.Max(enano.ObtenerValorDeAtaque() - mago.ObtenerValorDeDefensa(), 0);
             double expectedVida = 100 - expectedDano;
             Assert.That(mago.Vida, Is.EqualTo(expectedVida));
         }

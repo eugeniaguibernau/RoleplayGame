@@ -1,4 +1,6 @@
-public class Elfo
+using Program.Interfaces;
+
+public class Elfo : IPersonaje
 {
     private string nombre;
     private double vida;
@@ -43,36 +45,13 @@ public class Elfo
         set => this.elementos = value;
     }
 
-    public void RecibirAtaqueMago(Mago maguete)
+    public void RecibirAtaque(IPersonaje personaje)
     {
-        double dano = Math.Max(maguete.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
+        double dano = Math.Max(personaje.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
         Vida -= dano;
-
         if (Vida <= 0)
         {
-            Console.WriteLine($"Tu Elfo, {Nombre} fue ejecutado y despedazado vilmente por {maguete.Nombre}.");
-        }
-    }
-
-    public void RecibirAtaqueElfo(Elfo elfete)
-    {
-        double dano = Math.Max(elfete.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
-        Vida -= dano;
-
-        if (Vida <= 0)
-        {
-            Console.WriteLine($"Tu Elfo, {Nombre} fue ejecutado y despedazado vilmente por {elfete.Nombre}.");
-        }
-    }
-
-    public void RecibirAtaqueEnano(Enanos enanete)
-    {
-        double dano = Math.Max(enanete.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
-        Vida -= dano;
-
-        if (Vida <= 0)
-        {
-            Console.WriteLine($"Tu Elfo, {Nombre} fue ejecutado y despedazado vilmente por {enanete.Nombre}.");
+            Console.WriteLine($"{Nombre} ha muerto");
         }
     }
 
@@ -87,7 +66,7 @@ public class Elfo
         return total;
     }
 
-    public double ObtenerValorDefensa()
+    public double ObtenerValorDeDefensa()
     {
         double total = 0;
         foreach (Elementos item in elementos)

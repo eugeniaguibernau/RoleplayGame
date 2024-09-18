@@ -29,7 +29,7 @@ namespace LibraryTests
             elfo.AgregarElemento(elemento2);
 
             // Verificar que la defensa total es la suma correcta
-            Assert.That(elfo.ObtenerValorDefensa(), Is.EqualTo(15));
+            Assert.That(elfo.ObtenerValorDeDefensa(), Is.EqualTo(15));
         }
 
         [Test]
@@ -44,10 +44,10 @@ namespace LibraryTests
             var elfoDefensor = new Elfo("ElfoDefensor", new List<Elementos> { elementoDefensa }, 100);
 
             // Elfo atacante ataca al elfo defensor
-            elfoDefensor.RecibirAtaqueElfo(elfoAtacante);
+            elfoDefensor.RecibirAtaque(elfoAtacante);
 
             // Verificar la vida restante
-            double expectedDano = Math.Max(elfoAtacante.ObtenerValorDeAtaque() - elfoDefensor.ObtenerValorDefensa(), 0);
+            double expectedDano = Math.Max(elfoAtacante.ObtenerValorDeAtaque() - elfoDefensor.ObtenerValorDeDefensa(), 0);
             double expectedVida = 100 - expectedDano;
             Assert.That(elfoDefensor.Vida, Is.EqualTo(expectedVida));
         }
@@ -64,10 +64,10 @@ namespace LibraryTests
             var mago = new Mago("Mago1", new List<Elementos> { elementoMago }, new List<Hechizos>(), 100);
 
             // Mago ataca al elfo
-            elfo.RecibirAtaqueMago(mago);
+            elfo.RecibirAtaque(mago);
 
             // Verificar vida restante del elfo
-            double expectedDano = Math.Max(mago.ObtenerValorDeAtaque() - elfo.ObtenerValorDefensa(), 0);
+            double expectedDano = Math.Max(mago.ObtenerValorDeAtaque() - elfo.ObtenerValorDeDefensa(), 0);
             double expectedVida = 100 - expectedDano;
             Assert.That(elfo.Vida, Is.EqualTo(expectedVida));
         }
@@ -84,10 +84,10 @@ namespace LibraryTests
             var enano = new Enanos("Enano gordo", new List<Elementos> { elementoEnano }, 100);
 
             // Enano ataca al elfo
-            elfo2.RecibirAtaqueEnano(enano);
+            elfo2.RecibirAtaque(enano);
 
             // Verificar vida restante del elfo
-            double expectedDano = Math.Max(enano.ObtenerValorDeAtaque() - elfo2.ObtenerValorDefensa(), 0);
+            double expectedDano = Math.Max(enano.ObtenerValorDeAtaque() - elfo2.ObtenerValorDeDefensa(), 0);
             double expectedVida = 100 - expectedDano;
             Assert.That(elfo2.Vida, Is.EqualTo(expectedVida));
         }
