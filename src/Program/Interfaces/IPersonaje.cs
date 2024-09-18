@@ -8,4 +8,6 @@ public interface IPersonaje
     double ObtenerValorDeDefensa();
     void RecibirAtaque(IPersonaje personaje);
     void Curar();
+    void AgregarElemento(IElementos elemento);
+    void QuitarElemento(IElementos elemento);
 }
