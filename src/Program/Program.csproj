@@ -10,4 +10,10 @@
     <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Elementos\Elementos.cs" />
+    <Compile Remove="Elementos\Hechizos.cs" />
+    <Compile Remove="Elementos\Hechizo1ataca.cs" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,7 @@
 namespace Program.Interfaces;
 
-public interface IItemMagico
+public interface IItemMagico: IElementos
 {
-    string Nombre { get; set; }
+    //string Nombre { get; set; }
     int MultiplicadorDanio { get; set; }
 }

@@ -5,16 +5,18 @@ public class Enanos : IPersonaje
 {
     private string nombre;
     private double vida;
-    public IItemAtaque Espada { get; set; }
+    private List<IElementos> elementos;
+   //public IItemAtaque Espada { get; set; }
 
-    public IItemDefensa Escudo { get; set; }
+    //public IItemDefensa Escudo { get; set; }
 
 
-    public Enanos(string nombre, IItemAtaque espada, IItemDefensa escudo, double vida)
+    public Enanos(string nombre, List<IElementos> elementos, double vida)
     {
         this.Nombre = nombre;
-        this.Espada = espada;
-        this.Escudo = escudo;
+        this.elementos = elementos;
+        //this.Espada = espada;
+        //this.Escudo = escudo;
         this.Vida = vida;
     }
 
@@ -42,12 +44,28 @@ public class Enanos : IPersonaje
 
     public double ObtenerValorDeAtaque()
     {
-        return Espada?.Ataque ?? 0;
+        double tot = 0;
+        foreach (IElementos elemento in elementos)
+        {
+            if (elemento is IItemAtaque ataqueElemento)
+            {
+                tot += ataqueElemento.Ataque;
+            }
+        }
+        return tot;
     }
 
     public double ObtenerValorDeDefensa()
     {
-        return Escudo?.Defensa ?? 0;
+        double tot = 0;
+        foreach (IElementos elemento in elementos)
+        {
+            if (elemento is IItemDefensa defensaElemento)
+            {
+                tot += defensaElemento.Defensa;
+            }
+        }
+        return tot;
     }
 
     public void Curar()

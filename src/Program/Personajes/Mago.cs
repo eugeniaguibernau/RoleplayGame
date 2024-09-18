@@ -4,12 +4,14 @@ public class Mago : IPersonaje
 {
     private string nombre;
     private double vida;
-    private List<IElemento> elementos;
+    private List<IElementos> elementos;
+    private List<IHechizo> hechizos;
 
-    public Mago(string nombre, List<IElemento> elementos, double vida)
+    public Mago(string nombre, List<IElementos> elementos, List<IHechizo> hechizos, double vida)
     {
         this.nombre = nombre;
-        this.elementos = elementos ?? new List<IElemento>();
+        this.elementos = elementos ?? new List<IElementos>();
+        this.hechizos = hechizos ?? new List<IHechizo>();
         this.vida = vida;
     }
 
@@ -25,21 +27,51 @@ public class Mago : IPersonaje
         set => vida = value;
     }
 
-    public List<IElemento> Elementos
+    public List<IElementos> Elementos
     {
         get => elementos;
         set => elementos = value;
     }
 
+    public double ObtenerValorDeAtaque()
+    {
+        double tot = 0;
+        foreach (IElementos elemento in elementos)
+        {
+            if (elemento is IItemAtaque ataqueElemento)
+            {
+                tot += ataqueElemento.Ataque;
+            }
+        }
+        foreach (IHechizo elemento in hechizos)
+        {
+            if (elemento is IHeshizoAtaque ataqueHechizo)
+            {
+                tot += ataqueHechizo.Ataque;
+            }
+        }
+        return tot;
+    }
+
     public double ObtenerValorDeDefensa()
     {
-        double defensa = 0;
-        foreach (IElemento item in elementos)
+        double tot = 0;
+        foreach (IElementos elemento in elementos)
         {
-            defensa += item.Defensa;
+            if (elemento is IItemDefensa defensaElemento)
+            {
+                tot += defensaElemento.Defensa;
+            }
         }
-
-        return defensa;
+        foreach (IHechizo elemento in hechizos)
+        {
+            if (elemento is IHechizoDefensa defensaHechizo)
+            {
+                tot += defensaHechizo.Defensa;
+            }
+            
+        }
+        return tot;
     }
 
     public void RecibirAtaque(IPersonaje personaje)
@@ -65,23 +97,13 @@ public class Mago : IPersonaje
         }
     }
 
-    public double ObtenerValorDeAtaque()
-    {
-        double poderTotal = 0;
-        foreach (IElemento item in elementos)
-        {
-            poderTotal += item.Ataque;
-        }
-
-        return poderTotal;
-    }
-
-    public void AgregarElemento(IElemento elemento)
+    
+    public void AgregarElemento(IElementos elemento)
     {
         elementos.Add(elemento);
     }
 
-    public void QuitarElemento(IElemento elemento)
+    public void QuitarElemento(IElementos elemento)
     {
         elementos.Remove(elemento);
     }

@@ -1,7 +1,7 @@
 namespace Program.Interfaces;
 
-public interface IItemDefensa
+public interface IItemDefensa: IElementos
 {
-    string Nombre { get; set; }
+    //string Nombre { get; set; }
     double Defensa { get; set; }
 }

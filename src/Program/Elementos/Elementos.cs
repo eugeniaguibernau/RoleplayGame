@@ -1,4 +1,4 @@
-public class Elementos : IElemento
+public class Elementos : IElementos
 {
     private string nombre;
     private double ataque;

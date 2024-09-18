@@ -1,3 +1,4 @@
+using System.Numerics;
 using Program.Elementos;
 using Program.Interfaces;
 
@@ -5,12 +6,14 @@ public class Elfo : IPersonaje
 {
     private string nombre;
     private double vida;
-    public IItemAtaque Arco { get; set; }
+    private List<IElementos> elementos;
+    //public IItemAtaque Arco { get; set; }
 
-    public Elfo(string nombre, IItemAtaque arco, double vida)
+    public Elfo(string nombre, List<IElementos> elementos, double vida)
     {
         this.Nombre = nombre;
-        this.Arco = arco;
+        this.elementos = elementos;
+        //this.Arco = arco;
         this.Vida = vida;
     }
 
@@ -42,12 +45,28 @@ public class Elfo : IPersonaje
 
     public double ObtenerValorDeAtaque()
     {
-        return Arco?.Ataque ?? 0;
+        double tot = 0;
+        foreach (IElementos elemento in elementos)
+        {
+            if (elemento is IItemAtaque ataqueElemento)
+            {
+                tot += ataqueElemento.Ataque;
+            }
+        }
+        return tot;
     }
 
     public double ObtenerValorDeDefensa()
     {
-        return 0; // Elfo no tiene defensa por defecto
+        double tot = 0;
+        foreach (IElementos elemento in elementos)
+        {
+            if (elemento is IItemDefensa defensaElemento)
+            {
+                tot += defensaElemento.Defensa;
+            }
+        }
+        return tot;
     }
 
     public void Curar()
@@ -64,5 +83,15 @@ public class Elfo : IPersonaje
         {
             Console.WriteLine($"{Nombre} ha muerto");
         }
+    }
+
+    public void AgregarElemento(IElementos item)
+    {
+        elementos.Add(item);
+    }
+    
+    public void QuitarElemento(IElementos item)
+    {
+        elementos.Remove(item);
     }
 }
