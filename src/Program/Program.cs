@@ -1,4 +1,5 @@
 ﻿using Program.Elementos;
+using Program.Interfaces;
 
 namespace Program;
 
@@ -7,9 +8,9 @@ public class Program
     static void Main(string[] args)
     {
         // Elementos
-        Espada espada = new Espada("Espada", 10, 5);
-        Arco arcoYFlechas = new Arco("Arco y flechas", 5);
-        Escudo escudo = new Escudo("Escudo", 3);
+        IItemAtaque espada = new Espada("Espada", 10, 5);
+        IItemAtaque arcoYFlechas = new Arco("Arco y flechas", 5);
+        IItemDefensa escudo = new Escudo("Escudo", 3);
         BastonMagico bastonMagico = new BastonMagico("Bastón mágico", 15, 0, 10);
 
         // Personajes

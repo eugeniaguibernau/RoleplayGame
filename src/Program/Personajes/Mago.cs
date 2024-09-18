@@ -1,5 +1,3 @@
-// src/Program/Personajes/Mago.cs
-
 using Program.Elementos;
 using Program.Interfaces;
 
@@ -44,12 +42,12 @@ public class Mago : IPersonaje
 
     public double ObtenerValorDeAtaque()
     {
-        return BastonMagico?.Ataque ?? 0;
+        return BastonMagico?.Ataque * BastonMagico?.MultiplicadorDanio ?? 0;
     }
 
     public double ObtenerValorDeDefensa()
     {
-        return BastonMagico?.Defensa ?? 0;
+        return BastonMagico?.Defensa * BastonMagico?.MultiplicadorDanio ?? 0;
     }
 
     public void Curar()

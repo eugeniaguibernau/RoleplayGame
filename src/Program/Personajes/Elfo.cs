@@ -5,9 +5,9 @@ public class Elfo : IPersonaje
 {
     private string nombre;
     private double vida;
-    public Arco Arco { get; set; }
+    public IItemAtaque Arco { get; set; }
 
-    public Elfo(string nombre, Arco arco, double vida)
+    public Elfo(string nombre, IItemAtaque arco, double vida)
     {
         this.Nombre = nombre;
         this.Arco = arco;

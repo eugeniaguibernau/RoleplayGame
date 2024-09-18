@@ -5,10 +5,12 @@ public class Enanos : IPersonaje
 {
     private string nombre;
     private double vida;
-    public Espada Espada { get; set; }
-    public Escudo Escudo { get; set; }
+    public IItemAtaque Espada { get; set; }
 
-    public Enanos(string nombre, Espada espada, Escudo escudo, double vida)
+    public IItemDefensa Escudo { get; set; }
+
+
+    public Enanos(string nombre, IItemAtaque espada, IItemDefensa escudo, double vida)
     {
         this.Nombre = nombre;
         this.Espada = espada;
