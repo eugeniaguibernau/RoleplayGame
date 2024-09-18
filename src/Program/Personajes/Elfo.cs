@@ -6,17 +6,23 @@ public class Elfo : IPersonaje
 {
     private string nombre;
     private double vida;
-    private List<IElementos> elementos;
+    private  List<IElementos> elementos;
+    
     //public IItemAtaque Arco { get; set; }
 
-    public Elfo(string nombre, List<IElementos> elementos, double vida)
+    public Elfo(string nombre, double vida)
     {
         this.Nombre = nombre;
-        this.elementos = elementos;
+        this.elementos =new List<IElementos>();
         //this.Arco = arco;
         this.Vida = vida;
     }
 
+    public List<IElementos> Elementos
+    {
+        get => elementos;
+        set => elementos = value;
+    }
     public string Nombre
     {
         get => nombre;

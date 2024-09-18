@@ -7,11 +7,11 @@ public class Mago : IPersonaje
     private List<IElementos> elementos;
     private List<IHechizo> hechizos;
 
-    public Mago(string nombre, List<IElementos> elementos, List<IHechizo> hechizos, double vida)
+    public Mago(string nombre, double vida)
     {
         this.nombre = nombre;
-        this.elementos = elementos ?? new List<IElementos>();
-        this.hechizos = hechizos ?? new List<IHechizo>();
+        this.elementos = new List<IElementos>();
+        this.hechizos =  new List<IHechizo>();
         this.vida = vida;
     }
 
@@ -40,7 +40,16 @@ public class Mago : IPersonaje
         {
             if (elemento is IItemAtaque ataqueElemento)
             {
-                tot += ataqueElemento.Ataque;
+                if (ataqueElemento is IItemMagico itemMagico)
+                {
+                    // Si es un ItemMagico, se suma el ataque por el multiplicador
+                    tot += ataqueElemento.Ataque * (itemMagico.MultiplicadorDanio/100);
+                }
+                else
+                {
+                    // Si no es un ItemMagico, se suma el ataque directamente
+                    tot += ataqueElemento.Ataque;
+                }
             }
         }
         foreach (IHechizo elemento in hechizos)
