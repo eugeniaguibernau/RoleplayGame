@@ -1,4 +1,6 @@
-public class Mago
+using Program.Interfaces;
+
+public class Mago : IPersonaje
 {
     private string nombre;
     private double vida;
@@ -37,7 +39,7 @@ public class Mago
         set => libroDeHechizos = value;
     }
 
-    public double ObtenerValorDefensa()
+    public double ObtenerValorDeDefensa()
     {
         double defensa = 0;
         foreach (Elementos item in elementos)
@@ -48,54 +50,13 @@ public class Mago
         return defensa;
     }
 
-    public void RecibirAtaqueEnano(Enanos enano)
+    public void RecibirAtaque(IPersonaje personaje)
     {
-        double dano = Math.Max(enano.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
+        double dano = Math.Max(personaje.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
         Vida -= dano;
         if (Vida <= 0)
         {
-            Vida = 0;
-            Console.WriteLine(
-                $"Tu mago {Nombre} ha recibido {enano.ObtenerValorDeAtaque()} puntos de damage y ha muerto.");
-        }
-        else
-        {
-            Console.WriteLine(
-                $"Tu mago {Nombre} ha recibido {enano.ObtenerValorDeAtaque()} puntos de damage y le quedan {Vida} puntos de vida. Ojo con Gaspar!");
-        }
-    }
-
-    public void RecibirAtaqueElfo(Elfo elfo)
-    {
-        double dano = Math.Max(elfo.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
-        Vida -= dano;
-        if (Vida <= 0)
-        {
-            Vida = 0;
-            Console.WriteLine(
-                $"Tu mago {Nombre} ha recibido {elfo.ObtenerValorDeAtaque()} puntos de damage y ha muerto.");
-        }
-        else
-        {
-            Console.WriteLine(
-                $"Tu mago {Nombre} ha recibido {elfo.ObtenerValorDeAtaque()} puntos de damage y le quedan {Vida} puntos de vida. Ojo con Gaspar!");
-        }
-    }
-
-    public void RecibirAtaqueMago(Mago mago)
-    {
-        double dano = Math.Max(mago.ObtenerValorDeAtaque() - this.ObtenerValorDefensa(), 0);
-        Vida -= dano;
-        if (Vida <= 0)
-        {
-            Vida = 0;
-            Console.WriteLine(
-                $"Tu mago {Nombre} ha recibido {mago.ObtenerValorDeAtaque()} puntos de damage y ha muerto.");
-        }
-        else
-        {
-            Console.WriteLine(
-                $"Tu mago {Nombre} ha recibido {mago.ObtenerValorDeAtaque()} puntos de damage y le quedan {Vida} puntos de vida. Ojo con Gaspar!");
+            Console.WriteLine($"{Nombre} ha muerto");
         }
     }
 

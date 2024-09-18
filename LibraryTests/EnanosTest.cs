@@ -45,7 +45,7 @@ public class EnanosTest
         Enanos enanoDos = new Enanos("Enanito2", new List<Elementos> { elemento1Enano2 }, 100);
         enanoDos.AgregarElemento(elemento2Enano2);
         // Enano 2 ataca al enano 1
-        enanoUno.RecibirAtaqueDeEnano(enanoDos);
+        enanoUno.RecibirAtaque(enanoDos);
         double expectedDano = CalcularDano(enanoDos, enanoUno);
         double expectedVida = 100 - expectedDano;
         // Verifico que la vida del enano atacado (1) sea la esperada
@@ -66,7 +66,7 @@ public class EnanosTest
         Elfo elfoAtacante = new Elfo("Elfo1", new List<Elementos> { elemento1Elfo }, 100);
         elfoAtacante.AgregarElemento(elemento2Elfo);
         // Elfo ataca al enano
-        enanoUno.RecibirAtaqueDeElfo(
+        enanoUno.RecibirAtaque(
             elfoAtacante); // Asegúrate de tener este método o uno genérico que maneje diferentes tipos
         double expectedDano = CalcularDano(elfoAtacante, enanoUno);
         double expectedVida = 100 - expectedDano;
@@ -88,7 +88,7 @@ public class EnanosTest
         Mago magoAtacante = new Mago("Mago1", new List<Elementos> { elemento1Mago }, new List<Hechizos>(), 100);
         magoAtacante.AgregarElemento(elemento2Mago);
         // Mago ataca al enano
-        enanoUno.RecibirAtaqueDeMago(magoAtacante);
+        enanoUno.RecibirAtaque(magoAtacante);
         double expectedDano = CalcularDano(magoAtacante, enanoUno);
         double expectedVida = 100 - expectedDano;
         // Verifico que la vida del enano atacado (1) sea la esperada
