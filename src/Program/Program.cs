@@ -1,30 +1,28 @@
-﻿namespace Program;
+﻿using Program.Elementos;
+
+namespace Program;
 
 public class Program
 {
     static void Main(string[] args)
     {
-        //Elementos
-        Elementos espada = new Elementos("Espada", 10, 5, "Espadas");
-        Elementos arcoYFlechas = new Elementos("Arco y flechas", 5, 1, "Varios");
-        Elementos bastonMagico = new Elementos("Bastón Mágico", 3, 10, "Mágicos");
-
-        // Hechizos
-        Hechizos bolaDeFuego = new Hechizos("Bola de Fuego", 15, 0, "Ofensivo");
-        Hechizos escudoMagico = new Hechizos("Escudo Mágico", 0, 10, "Defensivo");
+        // Elementos
+        Espada espada = new Espada("Espada", 10, 5);
+        Arco arcoYFlechas = new Arco("Arco y flechas", 5);
+        Escudo escudo = new Escudo("Escudo", 3);
+        BastonMagico bastonMagico = new BastonMagico("Bastón mágico", 15, 0, 10);
 
         // Personajes
-        Enanos Enanito = new Enanos("Gimli", new List<Elementos> { espada }, 100);
-        Mago Maguito = new Mago("Gandalf", new List<Elementos> { bastonMagico },
-            new List<Hechizos> { bolaDeFuego, escudoMagico }, 80);
-        Elfo Elfito = new Elfo("Legolas", new List<Elementos> { arcoYFlechas }, 90);
+        Enanos Enanito = new Enanos("Gimli", espada, escudo, 100);
+        Mago Maguito = new Mago("Gandalf", bastonMagico, 80);
+        Elfo Elfito = new Elfo("Legolas", arcoYFlechas, 90);
 
         // Detalles de los personajes
         Console.WriteLine(
-            $"Enano: {Enanito.Nombre}, Vida: {Enanito.Vida}, Elementos: {string.Join(", ", Enanito.Elementos.Select(e => e.Nombre))}");
+            $"Enano: {Enanito.Nombre}, Vida: {Enanito.Vida}, Espada: {Enanito.Espada.Nombre}, Escudo: {Enanito.Escudo.Nombre}");
         Console.WriteLine(
-            $"Mago: {Maguito.Nombre}, Vida: {Maguito.Vida}, Elementos: {string.Join(", ", Maguito.Elementos.Select(e => e.Nombre))}, Hechizos: {string.Join(", ", Maguito.LibroDeHechizos.Select(h => h.Nombre))}");
+            $"Mago: {Maguito.Nombre}, Vida: {Maguito.Vida}, Bastón Mágico: {Maguito.BastonMagico.Nombre}");
         Console.WriteLine(
-            $"Elfo: {Elfito.Nombre}, Vida: {Elfito.Vida}, Elementos: {string.Join(", ", Elfito.Elementos.Select(e => e.Nombre))}");
+            $"Elfo: {Elfito.Nombre}, Vida: {Elfito.Vida}, Arco: {Elfito.Arco.Nombre}");
     }
 }

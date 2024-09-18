@@ -1,15 +1,18 @@
+using Program.Elementos;
 using Program.Interfaces;
 
 public class Enanos : IPersonaje
 {
     private string nombre;
     private double vida;
-    private List<Elementos> elementos;
+    public Espada Espada { get; set; }
+    public Escudo Escudo { get; set; }
 
-    public Enanos(string nombre, List<Elementos> elementos, double vida)
+    public Enanos(string nombre, Espada espada, Escudo escudo, double vida)
     {
         this.Nombre = nombre;
-        this.Elementos = elementos;
+        this.Espada = espada;
+        this.Escudo = escudo;
         this.Vida = vida;
     }
 
@@ -35,48 +38,14 @@ public class Enanos : IPersonaje
         }
     }
 
-    public List<Elementos> Elementos
-    {
-        get => elementos;
-        set => this.elementos = value;
-    }
-
     public double ObtenerValorDeAtaque()
     {
-        double valorAtaque = 0;
-        foreach (Elementos elemento in elementos)
-        {
-            valorAtaque += elemento.Ataque;
-        }
-
-        return valorAtaque;
+        return Espada?.Ataque ?? 0;
     }
 
     public double ObtenerValorDeDefensa()
     {
-        double valorDefensa = 0;
-        foreach (Elementos elemento in elementos)
-        {
-            valorDefensa += elemento.Defensa;
-        }
-
-        return valorDefensa;
-    }
-
-    public void AgregarElemento(Elementos elemento)
-    {
-        if (!elementos.Contains(elemento))
-        {
-            elementos.Add(elemento);
-        }
-    }
-
-    public void QuitarElemento(Elementos elemento)
-    {
-        if (elementos.Contains(elemento))
-        {
-            elementos.Remove(elemento);
-        }
+        return Escudo?.Defensa ?? 0;
     }
 
     public void Curar()
