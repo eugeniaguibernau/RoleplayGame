@@ -116,4 +116,14 @@ public class Mago : IPersonaje
     {
         elementos.Remove(elemento);
     }
+
+    public void AgregarHechizo(IHechizo hechizo)
+    {
+        hechizos.Add(hechizo);
+    }
+    
+    public void QuitarHechizo(IHechizo hechizo)
+        {
+            hechizos.Remove(hechizo);
+        }
 }
