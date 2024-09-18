@@ -1,8 +1,8 @@
 public class Enanos
 {
     private string nombre;
-    private List<Elementos> elementos;
     private double vida;
+    private List<Elementos> elementos;
 
     public Enanos(string nombre, List<Elementos> elementos, double vida)
     {
