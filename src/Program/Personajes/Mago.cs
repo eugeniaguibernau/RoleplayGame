@@ -1,59 +1,45 @@
-using Program.Elementos;
 using Program.Interfaces;
 
 public class Mago : IPersonaje
 {
     private string nombre;
     private double vida;
-    public BastonMagico BastonMagico { get; set; }
+    private List<IElemento> elementos;
 
-    public Mago(string nombre, BastonMagico bastonMagico, double vida)
+    public Mago(string nombre, List<IElemento> elementos, double vida)
     {
-        this.Nombre = nombre;
-        this.BastonMagico = bastonMagico;
-        this.Vida = vida;
+        this.nombre = nombre;
+        this.elementos = elementos ?? new List<IElemento>();
+        this.vida = vida;
     }
 
     public string Nombre
     {
         get => nombre;
-        set => this.nombre = value;
+        set => nombre = value;
     }
 
     public double Vida
     {
-        get { return vida; }
-        set
-        {
-            if (value < 0)
-            {
-                vida = 0;
-            }
-            else if (value > 100)
-            {
-                vida = 100;
-            }
-            else
-            {
-                vida = value;
-            }
-        }
+        get => vida;
+        set => vida = value;
     }
 
-    public double ObtenerValorDeAtaque()
+    public List<IElemento> Elementos
     {
-        return BastonMagico?.Ataque * BastonMagico?.MultiplicadorDanio ?? 0;
+        get => elementos;
+        set => elementos = value;
     }
 
     public double ObtenerValorDeDefensa()
     {
-        return BastonMagico?.Defensa * BastonMagico?.MultiplicadorDanio ?? 0;
-    }
+        double defensa = 0;
+        foreach (IElemento item in elementos)
+        {
+            defensa += item.Defensa;
+        }
 
-    public void Curar()
-    {
-        Vida += 10;
-        Console.WriteLine($" +10 puntos de vida. \n Salud de {Nombre}: {Vida}");
+        return defensa;
     }
 
     public void RecibirAtaque(IPersonaje personaje)
@@ -64,5 +50,39 @@ public class Mago : IPersonaje
         {
             Console.WriteLine($"{Nombre} ha muerto");
         }
+    }
+
+    public void Curar()
+    {
+        if (Vida > 0)
+        {
+            Vida += 15;
+            Console.WriteLine($"{Nombre} ha recuperado {15} puntos de salud. Enhorabuena!, pero ojito con Gaspar!");
+        }
+        else
+        {
+            Console.WriteLine($"No puedes curarte, pues ya tienes mucha vida.");
+        }
+    }
+
+    public double ObtenerValorDeAtaque()
+    {
+        double poderTotal = 0;
+        foreach (IElemento item in elementos)
+        {
+            poderTotal += item.Ataque;
+        }
+
+        return poderTotal;
+    }
+
+    public void AgregarElemento(IElemento elemento)
+    {
+        elementos.Add(elemento);
+    }
+
+    public void QuitarElemento(IElemento elemento)
+    {
+        elementos.Remove(elemento);
     }
 }
