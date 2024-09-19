@@ -1,4 +1,4 @@
 public interface IElementos
 {
-   string Nombre { get; set; }
+    string Nombre { get; set; }
 }

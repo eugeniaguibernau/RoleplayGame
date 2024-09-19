@@ -21,8 +21,6 @@ public class Program
         Enanito.AgregarElemento(escudo);
         Enanito.AgregarElemento(arcoYFlechas);
         Maguito.AgregarElemento(bastonMagico);
-        
-        
 
         // Detalles de los personajes
         Console.WriteLine(

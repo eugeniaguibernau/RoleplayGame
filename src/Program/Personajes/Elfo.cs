@@ -6,14 +6,14 @@ public class Elfo : IPersonaje
 {
     private string nombre;
     private double vida;
-    private  List<IElementos> elementos;
-    
+    private List<IElementos> elementos;
+
     //public IItemAtaque Arco { get; set; }
 
     public Elfo(string nombre, double vida)
     {
         this.Nombre = nombre;
-        this.elementos =new List<IElementos>();
+        this.elementos = new List<IElementos>();
         //this.Arco = arco;
         this.Vida = vida;
     }
@@ -23,6 +23,7 @@ public class Elfo : IPersonaje
         get => elementos;
         set => elementos = value;
     }
+
     public string Nombre
     {
         get => nombre;
@@ -59,6 +60,7 @@ public class Elfo : IPersonaje
                 tot += ataqueElemento.Ataque;
             }
         }
+
         return tot;
     }
 
@@ -72,6 +74,7 @@ public class Elfo : IPersonaje
                 tot += defensaElemento.Defensa;
             }
         }
+
         return tot;
     }
 
@@ -95,7 +98,7 @@ public class Elfo : IPersonaje
     {
         elementos.Add(item);
     }
-    
+
     public void QuitarElemento(IElementos item)
     {
         elementos.Remove(item);

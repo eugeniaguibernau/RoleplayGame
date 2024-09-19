@@ -11,7 +11,7 @@ public class Mago : IPersonaje
     {
         this.nombre = nombre;
         this.elementos = new List<IElementos>();
-        this.hechizos =  new List<IHechizo>();
+        this.hechizos = new List<IHechizo>();
         this.vida = vida;
     }
 
@@ -43,7 +43,7 @@ public class Mago : IPersonaje
                 if (ataqueElemento is IItemMagico itemMagico)
                 {
                     // Si es un ItemMagico, se suma el ataque por el multiplicador
-                    tot += ataqueElemento.Ataque * (itemMagico.MultiplicadorDanio/100);
+                    tot += ataqueElemento.Ataque * (itemMagico.MultiplicadorDanio / 100);
                 }
                 else
                 {
@@ -52,6 +52,7 @@ public class Mago : IPersonaje
                 }
             }
         }
+
         foreach (IHechizo elemento in hechizos)
         {
             if (elemento is IHeshizoAtaque ataqueHechizo)
@@ -59,6 +60,7 @@ public class Mago : IPersonaje
                 tot += ataqueHechizo.Ataque;
             }
         }
+
         return tot;
     }
 
@@ -72,14 +74,15 @@ public class Mago : IPersonaje
                 tot += defensaElemento.Defensa;
             }
         }
+
         foreach (IHechizo elemento in hechizos)
         {
             if (elemento is IHechizoDefensa defensaHechizo)
             {
                 tot += defensaHechizo.Defensa;
             }
-            
         }
+
         return tot;
     }
 
@@ -106,7 +109,7 @@ public class Mago : IPersonaje
         }
     }
 
-    
+
     public void AgregarElemento(IElementos elemento)
     {
         elementos.Add(elemento);
@@ -121,9 +124,9 @@ public class Mago : IPersonaje
     {
         hechizos.Add(hechizo);
     }
-    
+
     public void QuitarHechizo(IHechizo hechizo)
-        {
-            hechizos.Remove(hechizo);
-        }
+    {
+        hechizos.Remove(hechizo);
+    }
 }

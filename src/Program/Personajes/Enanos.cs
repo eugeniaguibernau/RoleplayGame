@@ -7,7 +7,7 @@ public class Enanos : IPersonaje
     private double vida;
     private List<IElementos> elementos;
 
-    
+
     //public IItemAtaque Espada { get; set; }
 
     //public IItemDefensa Escudo { get; set; }
@@ -16,7 +16,7 @@ public class Enanos : IPersonaje
     public Enanos(string nombre, double vida)
     {
         this.Nombre = nombre;
-        this.elementos =new List<IElementos>();
+        this.elementos = new List<IElementos>();
         //this.Espada = espada;
         //this.Escudo = escudo;
         this.Vida = vida;
@@ -27,6 +27,7 @@ public class Enanos : IPersonaje
         get => elementos;
         set => elementos = value;
     }
+
     public string Nombre
     {
         get => nombre;
@@ -59,6 +60,7 @@ public class Enanos : IPersonaje
                 tot += ataqueElemento.Ataque;
             }
         }
+
         return tot;
     }
 
@@ -72,6 +74,7 @@ public class Enanos : IPersonaje
                 tot += defensaElemento.Defensa;
             }
         }
+
         return tot;
     }
 
@@ -96,12 +99,12 @@ public class Enanos : IPersonaje
             Console.WriteLine($"{Nombre} ha muerto");
         }
     }
-    
+
     public void AgregarElemento(IElementos item)
     {
         elementos.Add(item);
     }
-    
+
     public void QuitarElemento(IElementos item)
     {
         elementos.Remove(item);
