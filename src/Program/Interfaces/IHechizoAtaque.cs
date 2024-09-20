@@ -1,6 +1,6 @@
 namespace Program.Interfaces;
 
-public interface IHeshizoAtaque : IHechizo
+public interface IHechizoAtaque : IHechizo
 {
     double Ataque { get; set; }
 }

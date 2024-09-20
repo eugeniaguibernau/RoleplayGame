@@ -7,11 +7,11 @@ public class Mago : IPersonaje
     private List<IElementos> elementos;
     private List<IHechizo> hechizos;
 
-    public Mago(string nombre, double vida)
+    public Mago(string nombre, List<IElementos> elementos, List<IHechizo> hechizos, double vida)
     {
         this.nombre = nombre;
-        this.elementos = new List<IElementos>();
-        this.hechizos = new List<IHechizo>();
+        this.elementos = elementos;
+        this.hechizos = hechizos;
         this.vida = vida;
     }
 
@@ -31,6 +31,12 @@ public class Mago : IPersonaje
     {
         get => elementos;
         set => elementos = value;
+    }
+
+    public List<IHechizo> Hechizos
+    {
+        get => hechizos;
+        set => hechizos = value;
     }
 
     public double ObtenerValorDeAtaque()
@@ -55,7 +61,7 @@ public class Mago : IPersonaje
 
         foreach (IHechizo elemento in hechizos)
         {
-            if (elemento is IHeshizoAtaque ataqueHechizo)
+            if (elemento is IHechizoAtaque ataqueHechizo)
             {
                 tot += ataqueHechizo.Ataque;
             }

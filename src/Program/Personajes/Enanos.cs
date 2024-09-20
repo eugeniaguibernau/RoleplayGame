@@ -13,10 +13,10 @@ public class Enanos : IPersonaje
     //public IItemDefensa Escudo { get; set; }
 
 
-    public Enanos(string nombre, double vida)
+    public Enanos(string nombre, List<IElementos> elementos, double vida)
     {
         this.Nombre = nombre;
-        this.elementos = new List<IElementos>();
+        this.elementos = elementos;
         //this.Espada = espada;
         //this.Escudo = escudo;
         this.Vida = vida;

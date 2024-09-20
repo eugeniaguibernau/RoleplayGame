@@ -10,10 +10,10 @@ public class Elfo : IPersonaje
 
     //public IItemAtaque Arco { get; set; }
 
-    public Elfo(string nombre, double vida)
+    public Elfo(string nombre, List<IElementos> elementos, double vida)
     {
         this.Nombre = nombre;
-        this.elementos = new List<IElementos>();
+        this.elementos = elementos;
         //this.Arco = arco;
         this.Vida = vida;
     }

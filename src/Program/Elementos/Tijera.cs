@@ -1,17 +1,18 @@
 using Program.Interfaces;
 
-namespace Program.Elementos;
-
-public class Espada : IItemAtaque, IItemDefensa
+namespace Program.Elementos
 {
-    public double Ataque { get; set; }
-    public double Defensa { get; set; }
-    public string Nombre { get; set; }
-
-    public Espada(string nombre, double ataque, double defensa)
+    public class Tijera : IItemAtaque, IItemDefensa
     {
-        this.Nombre = nombre;
-        this.Ataque = ataque;
-        this.Defensa = defensa;
+        public double Ataque { get; set; }
+        public double Defensa { get; set; }
+        public string Nombre { get; set; }
+
+        public Tijera(string nombre, double ataque, double defensa)
+        {
+            this.Nombre = nombre;
+            this.Ataque = ataque;
+            this.Defensa = defensa;
+        }
     }
 }

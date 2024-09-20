@@ -1,3 +1,6 @@
+using Program.Elementos;
+using Program.Interfaces;
+
 namespace LibraryTests;
 
 public class EnanosTest
@@ -5,119 +8,103 @@ public class EnanosTest
     [Test]
     public void TestObtenerValorAtaque()
     {
-        // Creo elementos para agregar después
-        Elementos elemento1Enano1 = new Elementos("Espada1", 15, 2, "Espada?");
-        Elementos elemento2Enano1 = new Elementos("Cuchillo", 5, 1, "yqs");
-        //Creo un enano
-        Enanos enanoUno = new Enanos("Enanito1", new List<Elementos>(), 100);
-        //Le agrego los elementos
-        enanoUno.AgregarElemento(elemento1Enano1);
-        enanoUno.AgregarElemento(elemento2Enano1);
-        //Verifico que el método obtener valor de ataque sume el ataque de todos los elementos agregados correctamente
-        Assert.That(enanoUno.ObtenerValorDeAtaque(), Is.EqualTo(20));
+        // Crear items de ataque
+        var espada = new Espada("Espada1", 15, 2);
+        var cuchillo = new Espada("Cuchillo", 5, 1); // Cambiado a Espada
+
+        // Crear enano y agregar elementos de ataque
+        var enano = new Enanos("Enano Guerrero", new List<IElementos> { espada }, 100);
+        enano.AgregarElemento(cuchillo);
+
+        // Verificar que el ataque total es la suma correcta
+        Assert.That(enano.ObtenerValorDeAtaque(), Is.EqualTo(20));
     }
 
     [Test]
     public void TestObtenerValorDefensa()
     {
-        // Creo elementos para agregar después
-        Elementos elemento1Enano2 = new Elementos("Espada1", 15, 2, "Espada?");
-        Elementos elemento2Enano2 = new Elementos("Escudo", 2, 8, "yqs");
-        //Le agrego los elementos
-        Enanos enanoDos = new Enanos("Enanito2", new List<Elementos>(), 100);
-        enanoDos.AgregarElemento(elemento1Enano2);
-        enanoDos.AgregarElemento(elemento2Enano2);
-        //Verifico que se sumen las defensas de los elementos correctamente
-        Assert.That(enanoDos.ObtenerValorDeDefensa(), Is.EqualTo(10)); 
+        // Crear items de defensa
+        var escudo = new Escudo("Escudo de madera", 8);
+        var espada = new Espada("Espada defensiva", 10, 2);
+
+        // Crear enano y agregar elementos de defensa
+        var enano = new Enanos("Enano Defensor", new List<IElementos> { escudo }, 100);
+        enano.AgregarElemento(espada);
+
+        // Verificar que la defensa total es la suma correcta
+        Assert.That(enano.ObtenerValorDeDefensa(), Is.EqualTo(10));
     }
 
     [Test]
     public void TestEnanoAtacaEnano()
     {
-        // Creo un Enano 1
-        Elementos elemento1Enano1 = new Elementos("Espada1", 15, 2, "Espada?");
-        Elementos elemento2Enano1 = new Elementos("Cuchillo", 5, 1, "yqs");
-        Enanos enanoUno = new Enanos("Enanito1", new List<Elementos> { elemento1Enano1 }, 100);
-        enanoUno.AgregarElemento(elemento2Enano1);
-        // Creo un Enano 2
-        Elementos elemento1Enano2 = new Elementos("Espada1", 15, 2, "Espada?");
-        Elementos elemento2Enano2 = new Elementos("Escudo", 2, 8, "yqs");
-        Enanos enanoDos = new Enanos("Enanito2", new List<Elementos> { elemento1Enano2 }, 100);
-        enanoDos.AgregarElemento(elemento2Enano2);
-        // Enano 2 ataca al enano 1
-        enanoUno.RecibirAtaque(enanoDos);
-        double expectedDano = CalcularDano(enanoDos, enanoUno);
+        // Crear enano atacante
+        var espada = new Espada("Espada de hierro", 20, 3);
+        var enanoAtacante = new Enanos("Enano Atacante", new List<IElementos> { espada }, 100);
+
+        // Crear enano defensor
+        var escudo = new Escudo("Escudo de hierro", 10);
+        var enanoDefensor = new Enanos("Enano Defensor", new List<IElementos> { escudo }, 100);
+
+        // Enano atacante ataca al enano defensor
+        enanoDefensor.RecibirAtaque(enanoAtacante);
+
+        // Verificar la vida restante
+        double expectedDano = Math.Max(enanoAtacante.ObtenerValorDeAtaque() - enanoDefensor.ObtenerValorDeDefensa(), 0);
         double expectedVida = 100 - expectedDano;
-        // Verifico que la vida del enano atacado (1) sea la esperada
-        Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida));
+        Assert.That(enanoDefensor.Vida, Is.EqualTo(expectedVida));
     }
 
     [Test]
     public void TestElfoAtacaEnano()
     {
-        // Enano 1
-        Elementos elemento1Enano1 = new Elementos("Espada1", 15, 2, "Espada?");
-        Elementos elemento2Enano1 = new Elementos("Cuchillo", 5, 1, "yqs");
-        Enanos enanoUno = new Enanos("Enanito1", new List<Elementos> { elemento1Enano1 }, 100);
-        enanoUno.AgregarElemento(elemento2Enano1);
-        // Elfo
-        Elementos elemento1Elfo = new Elementos("Espada1", 15, 2, "Espada?");
-        Elementos elemento2Elfo = new Elementos("Escudo", 2, 8, "yqs");
-        Elfo elfoAtacante = new Elfo("Elfo1", new List<Elementos> { elemento1Elfo }, 100);
-        elfoAtacante.AgregarElemento(elemento2Elfo);
+        // Crear enano defensor
+        var escudo = new Escudo("Escudo de hierro", 10);
+        var enanoDefensor = new Enanos("Enano Defensor", new List<IElementos> { escudo }, 100);
+
+        // Crear elfo atacante
+        var espadaElfo = new Espada("Espada elfica", 15, 2);
+        var elfoAtacante = new Elfo("Elfo Atacante", new List<IElementos> { espadaElfo }, 100);
+
         // Elfo ataca al enano
-        enanoUno.RecibirAtaque(
-            elfoAtacante); // Asegúrate de tener este método o uno genérico que maneje diferentes tipos
-        double expectedDano = CalcularDano(elfoAtacante, enanoUno);
+        enanoDefensor.RecibirAtaque(elfoAtacante);
+
+        // Verificar la vida restante
+        double expectedDano = Math.Max(elfoAtacante.ObtenerValorDeAtaque() - enanoDefensor.ObtenerValorDeDefensa(), 0);
         double expectedVida = 100 - expectedDano;
-        // Verifico que la vida del enano atacado (1) sea la esperada
-        Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida));
+        Assert.That(enanoDefensor.Vida, Is.EqualTo(expectedVida));
     }
 
     [Test]
     public void TestMagoAtacaEnano()
     {
-        // Enano 1
-        Elementos elemento1Enano1 = new Elementos("Espada1", 15, 2, "Espada?");
-        Elementos elemento2Enano1 = new Elementos("Cuchillo", 5, 1, "yqs");
-        Enanos enanoUno = new Enanos("Enanito1", new List<Elementos> { elemento1Enano1 }, 100);
-        enanoUno.AgregarElemento(elemento2Enano1);
-        // Mago
-        Elementos elemento1Mago = new Elementos("Báculo", 20, 1, "Mágico");
-        Elementos elemento2Mago = new Elementos("Escudo", 2, 8, "yqs");
-        Mago magoAtacante = new Mago("Mago1", new List<Elementos> { elemento1Mago }, new List<Hechizos>(), 100);
-        magoAtacante.AgregarElemento(elemento2Mago);
+        // Crear enano defensor
+        var escudo = new Escudo("Escudo de hierro", 10);
+        var enanoDefensor = new Enanos("Enano Defensor", new List<IElementos> { escudo }, 100);
+
+        // Crear mago atacante
+        var bastonMagico = new BastonMagico("Bastón Mágico", 25, 5, 3);
+        var magoAtacante = new Mago("Mago Atacante", new List<IElementos>(), new List<IHechizo> { bastonMagico }, 100);
+
         // Mago ataca al enano
-        enanoUno.RecibirAtaque(magoAtacante);
-        double expectedDano = CalcularDano(magoAtacante, enanoUno);
+        enanoDefensor.RecibirAtaque(magoAtacante);
+
+        // Verificar la vida restante
+        double expectedDano = Math.Max(magoAtacante.ObtenerValorDeAtaque() - enanoDefensor.ObtenerValorDeDefensa(), 0);
         double expectedVida = 100 - expectedDano;
-        // Verifico que la vida del enano atacado (1) sea la esperada
-        Assert.That(enanoUno.Vida, Is.EqualTo(expectedVida)); // Ajusta según las reglas
+        Assert.That(enanoDefensor.Vida, Is.EqualTo(expectedVida));
     }
 
     [Test]
     public void TestEnanoSeCura()
     {
-        //Creo un enano con poca vida
-        Enanos enanoDebil = new Enanos("Enanito", new List<Elementos>(), 10);
-        //Hago que el enano se cure a si mismo y luego verifico que se agregó los puntos de vida correctamente (+10)
+        // Crear enano con poca vida
+        var enanoDebil = new Enanos("Enano Debil", new List<IElementos>(), 10);
+
+        // Enano se cura
         enanoDebil.Curar();
+
+        // Verificar que la vida aumentó correctamente (+10)
         Assert.That(enanoDebil.Vida, Is.EqualTo(20));
     }
-
-    private double CalcularDano(Enanos enanoAtacante, Enanos enanoAtacado)
-    {
-        return Math.Max(enanoAtacante.ObtenerValorDeAtaque() - enanoAtacado.ObtenerValorDeDefensa(), 0);
-    }
-
-    private double CalcularDano(Elfo elfoAtacante, Enanos enanoAtacado)
-    {
-        return Math.Max(elfoAtacante.ObtenerValorDeAtaque() - enanoAtacado.ObtenerValorDeDefensa(), 0);
-    }
-
-    private double CalcularDano(Mago magoAtacante, Enanos enanoAtacado)
-    {
-        return Math.Max(magoAtacante.ObtenerValorDeAtaque() - enanoAtacado.ObtenerValorDeDefensa(), 0);
-    }
-    
 }

@@ -2,7 +2,7 @@ using Program.Interfaces;
 
 namespace Program.Elementos;
 
-public class HechizoDeAtaque : IHeshizoAtaque
+public class HechizoDeAtaque : IHechizoAtaque
 {
     public double Ataque { get; set; }
     public string Nombre { get; set; }

@@ -2,7 +2,7 @@ using Program.Interfaces;
 
 namespace Program.Elementos;
 
-public class BastonMagico : IItemAtaque, IItemDefensa, IItemMagico
+public class BastonMagico : IHechizoAtaque, IHechizoDefensa
 {
     public string Nombre { get; set; }
     public double Ataque { get; set; }
