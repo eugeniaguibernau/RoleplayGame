@@ -1,18 +1,18 @@
 using Program.Interfaces;
 
-public abstract class Personaje: IPersonaje
-{ 
+public abstract class Personaje : IPersonaje
+{
     protected string nombre;
-    protected double vida; 
+    protected double vida;
     protected List<IElementos> elementos; //si la hago privada o protected me dice que no está implementada la interfaz
-    protected int vP; 
-   
-   public int VP
-   {
-       get => vP;
-       set => vP = value;
-   }
-    
+    protected int vP;
+
+    public int VP
+    {
+        get => vP;
+        set => vP = value;
+    }
+
     public string Nombre
     {
         get => nombre;
@@ -24,13 +24,13 @@ public abstract class Personaje: IPersonaje
         get => vida;
         set => vida = value;
     }
-    
+
     public List<IElementos> Elementos
     {
         get => elementos;
         set => elementos = value ?? throw new ArgumentNullException(nameof(value));
     }
-    
+
     public abstract double ObtenerValorDeAtaque();
 
 
@@ -46,7 +46,7 @@ public abstract class Personaje: IPersonaje
             Console.WriteLine($"{Nombre} ha muerto");
         }
     }
-    
+
 
     public void AgregarElemento(IElementos elemento)
     {
@@ -57,5 +57,4 @@ public abstract class Personaje: IPersonaje
     {
         elementos.Remove(elemento);
     }
-
 }

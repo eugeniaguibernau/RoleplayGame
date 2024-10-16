@@ -1,12 +1,9 @@
-using Program.Interfaces;
-
 namespace Program.Personajes;
 
 public class Enemigo : Personaje
 {
     public Enemigo()
     {
-        
     }
 
     public override double ObtenerValorDeAtaque()
@@ -18,5 +15,4 @@ public class Enemigo : Personaje
     {
         throw new NotImplementedException();
     }
-    
 }

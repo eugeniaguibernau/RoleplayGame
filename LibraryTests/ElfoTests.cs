@@ -65,7 +65,7 @@ namespace LibraryTests
 
 
             var bastonMagico = new BastonMagico("Palo de madera con brillo", 30, 5, 2);
-            var mago = new Mago("Mago 1", new List<IElementos>{bastonMagico}, new List<IHechizo>( ),
+            var mago = new Mago("Mago 1", new List<IElementos> { bastonMagico }, new List<IHechizo>(),
                 100);
 
             // Mago ataca al elfo

@@ -28,12 +28,10 @@ public class Mago : Heroe
             {
                 if (ataqueElemento is IItemMagico itemMagico)
                 {
-                    // Si es un ItemMagico, se suma el ataque por el multiplicador
-                    tot += ataqueElemento.Ataque * (itemMagico.MultiplicadorDanio / 100);
+                    tot += ataqueElemento.Ataque * itemMagico.MultiplicadorDanio;
                 }
                 else
                 {
-                    // Si no es un ItemMagico, se suma el ataque directamente
                     tot += ataqueElemento.Ataque;
                 }
             }

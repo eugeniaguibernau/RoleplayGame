@@ -1,8 +1,6 @@
-using Program.Interfaces;
-
 namespace Program.Personajes;
 
-public abstract class Heroe: Personaje
+public abstract class Heroe : Personaje
 {
     public Heroe()
     {
@@ -29,5 +27,4 @@ public abstract class Heroe: Personaje
     {
         throw new NotImplementedException();
     }
-    
 }

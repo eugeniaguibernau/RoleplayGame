@@ -8,7 +8,9 @@ public interface IPersonaje
     int VP { get; set; }
     double ObtenerValorDeAtaque();
     double ObtenerValorDeDefensa();
+
     void RecibirAtaque(IPersonaje personaje);
+
     //void Curar(); no va acá, lo llevan solo los héroes
     void AgregarElemento(IElementos elemento);
     void QuitarElemento(IElementos elemento);

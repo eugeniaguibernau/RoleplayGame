@@ -84,7 +84,7 @@ public class EnanosTest
 
         // Crear mago atacante
         var bastonMagico = new BastonMagico("Bastón Mágico", 25, 5, 3);
-        var magoAtacante = new Mago("Mago Atacante", new List<IElementos>{bastonMagico}, new List<IHechizo> (), 100);
+        var magoAtacante = new Mago("Mago Atacante", new List<IElementos> { bastonMagico }, new List<IHechizo>(), 100);
 
         // Mago ataca al enano
         enanoDefensor.RecibirAtaque(magoAtacante);

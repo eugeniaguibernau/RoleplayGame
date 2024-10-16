@@ -1,5 +1,3 @@
-using System.Numerics;
-using Program.Elementos;
 using Program.Interfaces;
 using Program.Personajes;
 
@@ -11,6 +9,7 @@ public class Elfo : Heroe
         this.elementos = elementos;
         this.Vida = vida;
     }
+
     public override double ObtenerValorDeAtaque()
     {
         double tot = 0;

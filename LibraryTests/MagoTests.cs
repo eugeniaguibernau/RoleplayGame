@@ -12,7 +12,7 @@ namespace LibraryTests
             var bastonMagico = new BastonMagico("Bastón Mágico", 20, 5, 2);
 
             // Crear mago y agregar elementos de ataque
-            var mago = new Mago("Mago Poderoso", new List<IElementos>(), new List<IHechizo> (), 100);
+            var mago = new Mago("Mago Poderoso", new List<IElementos>(), new List<IHechizo>(), 100);
             mago.AgregarElemento(bastonMagico);
 
             // Verificar que el ataque total es la suma correcta
@@ -37,7 +37,7 @@ namespace LibraryTests
         {
             // Crear mago atacante
             var bastonMagico = new BastonMagico("Varita", 25, 0, 2);
-            var magoAtacante = new Mago("Mago Atacante", new List<IElementos>{bastonMagico}, new List<IHechizo> (),
+            var magoAtacante = new Mago("Mago Atacante", new List<IElementos> { bastonMagico }, new List<IHechizo>(),
                 100);
 
             // Crear mago defensor
