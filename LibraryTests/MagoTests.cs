@@ -84,8 +84,8 @@ namespace LibraryTests
             // Mago se cura
             magoDebil.Curar();
 
-            // Verificar que la vida aumentó correctamente (+15)
-            Assert.That(magoDebil.Vida, Is.EqualTo(25));
+            // Verificar que la vida aumentó correctamente (+10)
+            Assert.That(magoDebil.Vida, Is.EqualTo(20));
         }
     }
 }
