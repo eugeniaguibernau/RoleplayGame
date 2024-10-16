@@ -1,3 +1,5 @@
+using Program.Personajes;
+
 namespace Program;
 
 public class Batalla
