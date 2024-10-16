@@ -37,7 +37,15 @@ public abstract class Personaje: IPersonaje
     public abstract double ObtenerValorDeDefensa();
 
 
-    public abstract void RecibirAtaque(IPersonaje personaje);
+    public void RecibirAtaque(IPersonaje personaje)
+    {
+        double dano = Math.Max(personaje.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
+        Vida -= dano;
+        if (Vida <= 0)
+        {
+            Console.WriteLine($"{Nombre} ha muerto");
+        }
+    }
     
 
     public void AgregarElemento(IElementos elemento)

@@ -18,9 +18,5 @@ public class Enemigo : Personaje
     {
         throw new NotImplementedException();
     }
-
-    public override void RecibirAtaque(IPersonaje personaje)
-    {
-        throw new NotImplementedException();
-    }
+    
 }
