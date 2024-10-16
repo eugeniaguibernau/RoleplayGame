@@ -8,9 +8,10 @@ public abstract class Heroe: Personaje
     {
     }
 
-    public int ObtenerVP()
+    public void ObtenerVP(Enemigo enemigo)
     {
-        return vP;
+        this.vP += enemigo.VP;
+        enemigo.VP = 0;
     }
 
     public void Curar()
@@ -28,9 +29,5 @@ public abstract class Heroe: Personaje
     {
         throw new NotImplementedException();
     }
-
-    public override void RecibirAtaque(IPersonaje personaje)
-    {
-        throw new NotImplementedException();
-    }
+    
 }
