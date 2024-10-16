@@ -1,10 +1,8 @@
 using Program.Interfaces;
+using Program.Personajes;
 
-public class Mago : IPersonaje
+public class Mago : Heroe
 {
-    private string nombre;
-    private double vida;
-    private List<IElementos> elementos;
     private List<IHechizo> hechizos;
 
     public Mago(string nombre, List<IElementos> elementos, List<IHechizo> hechizos, double vida)
@@ -15,31 +13,13 @@ public class Mago : IPersonaje
         this.vida = vida;
     }
 
-    public string Nombre
-    {
-        get => nombre;
-        set => nombre = value;
-    }
-
-    public double Vida
-    {
-        get => vida;
-        set => vida = value;
-    }
-
-    public List<IElementos> Elementos
-    {
-        get => elementos;
-        set => elementos = value;
-    }
-
     public List<IHechizo> Hechizos
     {
         get => hechizos;
         set => hechizos = value;
     }
 
-    public double ObtenerValorDeAtaque()
+    public override double ObtenerValorDeAtaque()
     {
         double tot = 0;
         foreach (IElementos elemento in elementos)
@@ -70,7 +50,7 @@ public class Mago : IPersonaje
         return tot;
     }
 
-    public double ObtenerValorDeDefensa()
+    public override double ObtenerValorDeDefensa()
     {
         double tot = 0;
         foreach (IElementos elemento in elementos)
@@ -90,40 +70,6 @@ public class Mago : IPersonaje
         }
 
         return tot;
-    }
-
-    public void RecibirAtaque(IPersonaje personaje)
-    {
-        double dano = Math.Max(personaje.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
-        Vida -= dano;
-        if (Vida <= 0)
-        {
-            Console.WriteLine($"{Nombre} ha muerto");
-        }
-    }
-
-    public void Curar()
-    {
-        if (Vida > 0)
-        {
-            Vida += 15;
-            Console.WriteLine($"{Nombre} ha recuperado {15} puntos de salud. Enhorabuena!, pero ojito con Gaspar!");
-        }
-        else
-        {
-            Console.WriteLine($"No puedes curarte, pues ya tienes mucha vida.");
-        }
-    }
-
-
-    public void AgregarElemento(IElementos elemento)
-    {
-        elementos.Add(elemento);
-    }
-
-    public void QuitarElemento(IElementos elemento)
-    {
-        elementos.Remove(elemento);
     }
 
     public void AgregarHechizo(IHechizo hechizo)
