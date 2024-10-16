@@ -1,42 +1,79 @@
+using Program.Personajes;
+
 namespace Program;
 
 public class Batalla
 {
-    public List<Heroe> Heroes { get; set; }
-    public List<Enemigo> Enemigos { get; set; }
+    private List<Heroe> Heroes { get; set; }
+    private List<Enemigo> Enemigos { get; set; }
 
     public Batalla(List<Heroe> heroes, List<Enemigo> enemigos)
     {
-        this.Heroes = heroes;
-        this.Enemigos = enemigos;
+        Heroes = heroes;
+        Enemigos = enemigos;
     }
 
     public void DoEncounter()
     {
-        int numHeroes = Heroes.Count; // Obtiene el número de héroes 3
-        int numEnemigos = Enemigos.Count; // Obtiene el número de enemigos 4
-
-        // Caso 1: Si solo hay un héroe
-        if (numHeroes == 1)
+        while (Heroes.Any() && Enemigos.Any())
         {
-            // Todos los enemigos atacan al único héroe (el héroe en la posición 0)
-            Enemigos.ForEach(enemigo => { Heroes[0].RecibirAtaque(enemigo); });
+            FaseAtaqueEnemigos();
+            RemoverHeroesDerrotados();
+
+            FaseAtaqueHeroes();
+            RemoverEnemigosDerrotados();
+
+            CurarHeroesConVPAlto();
         }
-        // Caso 2: Si hay más de un héroe
-        else if (numHeroes > 1)
-        {
-            // Se distribuyen los ataques entre los héroes
-            for (int i = 0; i < numEnemigos; i++) // Itera sobre cada enemigo
-            {
-                // Calcula el índice del héroe que recibirá el ataque
-                // Usando la operación i % numHeroes, los ataques se reparten cíclicamente
-                // Si hay más enemigos que héroes, este operador asegura que los héroes
-                // sean atacados de manera equitativa y en secuencia
-                int indexHeroe = i % numHeroes; // 0, 1, 2, 0
 
-                // El héroe correspondiente recibe el ataque del enemigo actual
-                Heroes[indexHeroe].RecibirAtaque(Enemigos[i]);
+        FinBatalla();
+    }
+
+    private void FaseAtaqueEnemigos()
+    {
+        int numHeroes = Heroes.Count;
+        for (int i = 0; i < Enemigos.Count; i++)
+        {
+            int indexHeroe = i % numHeroes;
+            Heroes[indexHeroe].RecibirAtaque(Enemigos[i]);
+        }
+    }
+
+    private void RemoverHeroesDerrotados()
+    {
+        Heroes.RemoveAll(heroe => heroe.Vida == 0);
+    }
+
+    private void FaseAtaqueHeroes()
+    {
+        foreach (var heroe in Heroes.Where(h => h.Vida > 0))
+        {
+            foreach (var enemigo in Enemigos.ToList())
+            {
+                enemigo.RecibirAtaque(heroe);
+                if (enemigo.Vida == 0)
+                {
+                    heroe.ObtenerVP(enemigo);
+                }
             }
         }
+    }
+
+    private void RemoverEnemigosDerrotados()
+    {
+        Enemigos.RemoveAll(enemigo => enemigo.Vida == 0);
+    }
+
+    private void CurarHeroesConVPAlto()
+    {
+        foreach (var heroe in Heroes.Where(h => h.VP >= 5))
+        {
+            heroe.Curar();
+        }
+    }
+
+    private void FinBatalla()
+    {
+        Console.WriteLine("La batalla ha terminado");
     }
 }
