@@ -1,6 +1,7 @@
 using Program.Interfaces;
+using Program.Personajes;
 
-public class Mago : Personaje
+public class Mago : Heroe
 {
     private List<IHechizo> hechizos;
 

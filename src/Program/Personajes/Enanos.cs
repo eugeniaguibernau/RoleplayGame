@@ -1,7 +1,8 @@
 using Program.Elementos;
 using Program.Interfaces;
+using Program.Personajes;
 
-public class Enanos : Personaje
+public class Enanos : Heroe
 {
 
     public Enanos(string nombre, List<IElementos> elementos, double vida)

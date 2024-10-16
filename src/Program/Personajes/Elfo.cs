@@ -1,8 +1,9 @@
 using System.Numerics;
 using Program.Elementos;
 using Program.Interfaces;
+using Program.Personajes;
 
-public class Elfo : Personaje
+public class Elfo : Heroe
 {
     public Elfo(string nombre, List<IElementos> elementos, double vida)
     {
