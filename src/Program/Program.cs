@@ -20,7 +20,7 @@ public class Program
         Elfito.AgregarElemento(espada);
         Enanito.AgregarElemento(escudo);
         Enanito.AgregarElemento(arcoYFlechas);
-        Maguito.AgregarHechizo(bastonMagico);
+        Maguito.AgregarElemento(bastonMagico);
 
         string enanoItems = string.Join(", ", Enanito.Elementos.Select(e => e.Nombre));
         string magoItems = string.Join(", ", Maguito.Elementos.Select(e => e.Nombre));
