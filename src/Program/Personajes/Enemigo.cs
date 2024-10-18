@@ -4,8 +4,12 @@ namespace Program.Personajes;
 
 public class Enemigo : Personaje
 {
-    public Enemigo()
+    public Enemigo(string nombre, double vida, List<IElementos> elementos, int vp)
     {
+        this.Nombre = nombre;
+        this.Vida = vida;
+        this.elementos = elementos;
+        this.VP = vp;
     }
 
     public override double ObtenerValorDeAtaque()

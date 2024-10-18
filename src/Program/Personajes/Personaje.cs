@@ -41,12 +41,15 @@ public abstract class Personaje : IPersonaje
     {
         double dano = Math.Max(personaje.ObtenerValorDeAtaque() - ObtenerValorDeDefensa(), 0);
         Vida -= dano;
+
+        Console.WriteLine($"Daño recibido por {Nombre}: {dano}. Vida restante: {Vida}");
+
         if (Vida <= 0)
         {
+            Vida = 0; // Asegúrate de que no se pase de cero
             Console.WriteLine($"{Nombre} ha muerto");
         }
     }
-
 
     public void AgregarElemento(IElementos elemento)
     {

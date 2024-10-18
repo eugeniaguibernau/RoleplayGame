@@ -2,10 +2,9 @@ using Program.Elementos;
 using Program.Interfaces;
 using Program.Personajes;
 
-namespace Program.Tests
+namespace LibraryTests
 {
-    [TestFixture]
-    public class BatallaTest
+    public class BatallaTests
     {
         private Mago mago;
         private Enanos enano;
@@ -22,10 +21,11 @@ namespace Program.Tests
         [SetUp]
         public void Setup()
         {
-            mago = new Mago("Hugo", new List<IElementos>{arco}, new List<IHechizo>{hechizoparamago}, 100);
-            enano = new Enanos("Gaspar", new List<IElementos>{escudo, tijera}, 120);
-            enemigo1 = new Enemigo() { Nombre = "Opel Reckord", Vida = 80, VP = 3 };
-            enemigo2 = new Enemigo() { Nombre = "Urbano", Vida = 100, VP = 5 };
+            mago = new Mago("Hugo", new List<IElementos> { arco }, new List<IHechizo> { hechizoparamago }, 100);
+            enano = new Enanos("Gaspar", new List<IElementos> { escudo, tijera }, 120);
+
+            enemigo1 = new Enemigo("Enemigo1", 100, new List<IElementos> { arco }, 10);
+            enemigo2 = new Enemigo("Enemigo2", 100, new List<IElementos> { escudo }, 10);
 
             heroes = new List<Heroe> { mago, enano };
             enemigos = new List<Enemigo> { enemigo1, enemigo2 };
@@ -39,94 +39,131 @@ namespace Program.Tests
         }
 
         [Test]
-        public void TestBatalla_HeroesGanan()
+        public void TestHeroesGananBatalla()
         {
+            // Crear héroes y enemigos
+            var espada = new Espada("Espada", 10, 5);
+            var heroe1 = new HeroeConcreto("Heroe 1", 30, new List<IElementos> { espada });
+            var heroe2 = new HeroeConcreto("Heroe 2", 30, new List<IElementos> { espada });
+
+            var enemigo1 = new Enemigo("Enemigo 1", 25, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
+                3);
+            var enemigo2 = new Enemigo("Enemigo 2", 25, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
+                3);
+
+            // Iniciar batalla
+            var batalla = new Batalla(new List<Heroe> { heroe1, heroe2 }, new List<Enemigo> { enemigo1, enemigo2 });
             batalla.DoEncounter();
 
-            // Para asegurarse de que los buenos ganan, vemos si todos los malos fueron derrotados.
-            Assert.IsEmpty(enemigos, "Los enemigos deberían estar vacíos al final de la batalla.");
-            Assert.IsNotEmpty(heroes, "Debería haber al menos un héroe vivo.");
+            // Verificar que los héroes ganaron
+            Assert.That(heroe1.Vida, Is.GreaterThan(0));
+            Assert.That(heroe2.Vida, Is.GreaterThan(0));
+            Assert.That(enemigo1.Vida, Is.EqualTo(0));
+            Assert.That(enemigo2.Vida, Is.EqualTo(0));
         }
 
         [Test]
-        public void TestBatalla_EnemigosGanan()
+        public void TestEnemigosGananBatalla()
         {
-            mago.Vida = 10;
-            enano.Vida = 10;
+            // Crear héroes y enemigos
+            var heroe1 = new HeroeConcreto("Heroe 1", 10, new List<IElementos>());
+            var heroe2 = new HeroeConcreto("Heroe 2", 10, new List<IElementos>());
 
+            var enemigo1 = new Enemigo("Enemigo 1", 25, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
+                3);
+            var enemigo2 = new Enemigo("Enemigo 2", 25, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
+                3);
+
+            // Iniciar batalla
+            var batalla = new Batalla(new List<Heroe> { heroe1, heroe2 }, new List<Enemigo> { enemigo1, enemigo2 });
             batalla.DoEncounter();
 
-            // Caso contrario, aqui ganan los malos, ergo; vemos si los buenos fueron derrotados.
-            Assert.IsEmpty(heroes, "Los héroes deberían estar vacíos al final de la batalla.");
-            Assert.IsNotEmpty(enemigos, "Debería haber al menos un enemigo vivo.");
-        }
-
-        [Test]
-        public void TestHeroe_CurarConVP()
-        {
-            // Incrementar el VP del héroe para forzar la curación
-            enano.ObtenerVP(enemigo1);
-            enano.ObtenerVP(enemigo2);
-
-            double vidaAntes = enano.Vida;
-            batalla.DoEncounter(); // Debería activar la curación
-
-            // Verificar que el enano Gaspar haya sido curado
-            Assert.Greater(enano.Vida, vidaAntes, "El héroe debería haber sido curado.");
-        }
-
-        [Test]
-        public void TestEnemigos_AtaqueEnCadena()
-        {
-            // Simular fase de ataque de enemigos
-            batalla.DoEncounter();
-
-            // Verificar que los héroes hayan recibido daño
-            Assert.Less(mago.Vida, 100, "El mago debería haber recibido daño.");
-            Assert.Less(enano.Vida, 120, "El enano debería haber recibido daño.");
+            // Verificar que los enemigos ganaron
+            Assert.That(heroe1.Vida, Is.EqualTo(0));
+            Assert.That(heroe2.Vida, Is.EqualTo(0));
+            Assert.That(enemigo1.Vida, Is.GreaterThan(0));
+            Assert.That(enemigo2.Vida, Is.GreaterThan(0));
         }
 
         [Test]
         public void TestRemoverHeroesDerrotados()
         {
-            mago.Vida = 0;
-            enano.Vida = 5;
+            // Crear héroes
+            var heroe1 = new HeroeConcreto("Heroe 1", 0, new List<IElementos>());
+            var heroe2 = new HeroeConcreto("Heroe 2", 30, new List<IElementos>());
 
+            // Iniciar batalla
+            var batalla = new Batalla(new List<Heroe> { heroe1, heroe2 }, new List<Enemigo>());
             batalla.RemoverHeroesDerrotados();
 
-            // Verificar que el mago Hugo ha sido eliminado, pero el enano no (porque su vida es mayor que 0)
-            Assert.AreEqual(1, heroes.Count, "Debería haber solo un héroe vivo.");
-            Assert.IsTrue(heroes.Contains(enano), "El enano debería seguir en la lista.");
-            Assert.IsFalse(heroes.Contains(mago), "El mago debería haber sido eliminado.");
+            // Verificar que el héroe derrotado ha sido removido
+            Assert.That(batalla.Heroes.Count, Is.EqualTo(1));
+            Assert.That(batalla.Heroes[0].Nombre, Is.EqualTo("Heroe 2"));
         }
 
         [Test]
         public void TestRemoverEnemigosDerrotados()
         {
-            enemigo1.Vida = 0;
-            enemigo2.Vida = 50;
+            // Crear enemigos
+            var enemigo1 = new Enemigo("Enemigo 1", 0, new List<IElementos>(), 0);
+            var enemigo2 = new Enemigo("Enemigo 2", 25, new List<IElementos>(), 3);
 
+            // Iniciar batalla
+            var batalla = new Batalla(new List<Heroe>(), new List<Enemigo> { enemigo1, enemigo2 });
             batalla.RemoverEnemigosDerrotados();
 
-            // Verificar que el Opel Reckord ha sido eliminado, pero Urbano no (porque su vida es mayor que 0)
-            Assert.AreEqual(1, enemigos.Count, "Debería haber solo un enemigo vivo.");
-            Assert.IsTrue(enemigos.Contains(enemigo2), "El enemigo 2 debería seguir en la lista.");
-            Assert.IsFalse(enemigos.Contains(enemigo1), "El enemigo 1 debería haber sido eliminado.");
+            // Verificar que el enemigo derrotado ha sido removido
+            Assert.That(batalla.Enemigos.Count, Is.EqualTo(1));
+            Assert.That(batalla.Enemigos[0].Nombre, Is.EqualTo("Enemigo 2"));
+        }
+
+        [Test]
+        public void TestCurarHeroesConVpAlto()
+        {
+            // Crear héroes
+            var espada = new Espada("Espada", 10, 5);
+            var heroe1 = new HeroeConcreto("Heroe 1", 10, new List<IElementos> { espada }) { VP = 5 };
+            var heroe2 = new HeroeConcreto("Heroe 2", 10, new List<IElementos> { espada }) { VP = 3 };
+
+            // Iniciar batalla
+            var batalla = new Batalla(new List<Heroe> { heroe1, heroe2 }, new List<Enemigo>());
+            batalla.CurarHeroesConVpAlto();
+
+            // Verificar que el héroe con VP alto se curó
+            Assert.That(heroe1.Vida, Is.EqualTo(20)); // Aumenta la vida al curarse
+            Assert.That(heroe2.Vida, Is.EqualTo(10)); // No se cura porque VP < 5
+        }
+
+        [Test]
+        public void TestFaseAtaqueHeroesYRemoverEnemigosDerrotados()
+        {
+            // Crear héroes y enemigos
+            var espada = new Espada("Espada", 18, 5); // 18 de ataque
+            var heroe = new HeroeConcreto("Heroe", 30, new List<IElementos> { espada });
+
+            var enemigo = new Enemigo("Enemigo", 14, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
+                3);
+
+            // Iniciar batalla
+            var batalla = new Batalla(new List<Heroe> { heroe }, new List<Enemigo> { enemigo });
+
+            // Realizar ataque de héroes
+            batalla.FaseAtaqueHeroes();
+
+            // Verificar que el enemigo fue derrotado
+            Assert.That(enemigo.Vida, Is.EqualTo(0));
+            Assert.That(batalla.Enemigos.Count, Is.EqualTo(0)); // Asegurarse de que se removió
         }
 
 
-        [Test]
-        public void TestBatalla_Termina()
+        public class HeroeConcreto : Heroe
         {
-            // Verificar que el mensaje de finalización de batalla se muestra correctamente
-            using (var sw = new StringWriter())
+            public HeroeConcreto(string nombre, double vida, List<IElementos> elementos)
             {
-                Console.SetOut(sw);
-
-                batalla.DoEncounter();
-                string expected = "La batalla ha terminado";
-
-                Assert.IsTrue(sw.ToString().Contains(expected), "La batalla debería terminar con el mensaje esperado.");
+                Nombre = nombre;
+                Vida = vida;
+                this.elementos = elementos;
+                this.vP = 0; // Inicializar VP en 0
             }
         }
     }

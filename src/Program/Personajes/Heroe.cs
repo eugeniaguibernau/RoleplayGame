@@ -1,3 +1,5 @@
+using Program.Interfaces;
+
 namespace Program.Personajes;
 
 public abstract class Heroe : Personaje
@@ -20,11 +22,29 @@ public abstract class Heroe : Personaje
 
     public override double ObtenerValorDeAtaque()
     {
-        throw new NotImplementedException();
+        double tot = 0;
+        foreach (IElementos elemento in elementos)
+        {
+            if (elemento is IItemAtaque ataqueElemento)
+            {
+                tot += ataqueElemento.Ataque;
+            }
+        }
+
+        return tot;
     }
 
     public override double ObtenerValorDeDefensa()
     {
-        throw new NotImplementedException();
+        double tot = 0;
+        foreach (IElementos elemento in elementos)
+        {
+            if (elemento is IItemDefensa defensaElemento)
+            {
+                tot += defensaElemento.Defensa;
+            }
+        }
+
+        return tot;
     }
 }

@@ -1,11 +1,9 @@
 using Program.Personajes;
 
-namespace Program;
-
 public class Batalla
 {
-    private List<Heroe> Heroes { get; set; }
-    private List<Enemigo> Enemigos { get; set; }
+    public List<Heroe> Heroes { get; set; }
+    public List<Enemigo> Enemigos { get; set; }
 
     public Batalla(List<Heroe> heroes, List<Enemigo> enemigos)
     {
@@ -20,9 +18,10 @@ public class Batalla
             FaseAtaqueEnemigos();
             RemoverHeroesDerrotados();
 
+            if (!Heroes.Any()) break; // Salir si todos los héroes han sido derrotados
+
             FaseAtaqueHeroes();
             RemoverEnemigosDerrotados();
-
             CurarHeroesConVpAlto();
         }
 
@@ -31,30 +30,30 @@ public class Batalla
 
     private void FaseAtaqueEnemigos()
     {
-        int numHeroes = Heroes.Count; // Se guarda el número de héroes para evitar recalcularlo en cada iteración ej: 4
-        for (int i = 0; i < Enemigos.Count; i++) // Se recorre la lista de enemigos
+        int numHeroes = Heroes.Count;
+        for (int i = 0; i < Enemigos.Count; i++)
         {
-            int indexHeroe =
-                i % numHeroes; // Se calcula el índice del héroe que recibirá el ataque ej: 0, 1, 2, 3, 0, 1, 2, 3
-            Heroes[indexHeroe].RecibirAtaque(Enemigos[i]); // Se ataca al héroe correspondiente
+            int indexHeroe = i % numHeroes; // El héroe que recibirá el ataque
+            Heroes[indexHeroe].RecibirAtaque(Enemigos[i]); // El héroe recibe el ataque del enemigo
         }
     }
 
     public void RemoverHeroesDerrotados()
     {
-        Heroes.RemoveAll(heroe => heroe.Vida == 0);
+        Heroes.RemoveAll(heroe => heroe.Vida <= 0); // Remover héroes cuya vida sea cero o menor
     }
 
-    private void FaseAtaqueHeroes()
+    public void FaseAtaqueHeroes()
     {
-        foreach (var heroe in Heroes)
+        foreach (var heroe in Heroes.ToList())
         {
             foreach (var enemigo in Enemigos.ToList())
             {
                 enemigo.RecibirAtaque(heroe);
-                if (enemigo.Vida == 0)
+                if (enemigo.Vida <= 0)
                 {
                     heroe.ObtenerVP(enemigo);
+                    RemoverEnemigosDerrotados();
                 }
             }
         }
@@ -62,12 +61,12 @@ public class Batalla
 
     public void RemoverEnemigosDerrotados()
     {
-        Enemigos.RemoveAll(enemigo => enemigo.Vida == 0);
+        Enemigos.RemoveAll(enemigo => enemigo.Vida <= 0); // Remover enemigos cuya vida sea cero o menor
     }
 
-    private void CurarHeroesConVpAlto()
+    public void CurarHeroesConVpAlto()
     {
-        foreach (var heroe in Heroes.Where(h => h.VP >= 5))
+        foreach (var heroe in Heroes.Where(h => h.VP >= 5)) // No es necesario verificar si está vivo aquí
         {
             heroe.Curar();
         }
@@ -75,6 +74,7 @@ public class Batalla
 
     private void FinBatalla()
     {
-        Console.WriteLine("La batalla ha terminado");
+        string ganador = Heroes.Any() ? "los héroes" : "los enemigos";
+        Console.WriteLine($"La batalla ha terminado. Ganaron {ganador}.");
     }
 }
