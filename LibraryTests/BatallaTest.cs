@@ -43,8 +43,8 @@ namespace LibraryTests
         {
             // Crear héroes y enemigos
             var espada = new Espada("Espada", 10, 5);
-            var heroe1 = new HeroeConcreto("Heroe 1", 30, new List<IElementos> { espada });
-            var heroe2 = new HeroeConcreto("Heroe 2", 30, new List<IElementos> { espada });
+            var heroe1 = new Mago("Heroe 1", new List<IElementos> { espada }, new List<IHechizo>(), 30);
+            var heroe2 = new Elfo("Heroe 2", new List<IElementos> { espada }, 30);
 
             var enemigo1 = new Enemigo("Enemigo 1", 25, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
                 3);
@@ -66,8 +66,9 @@ namespace LibraryTests
         public void TestEnemigosGananBatalla()
         {
             // Crear héroes y enemigos
-            var heroe1 = new HeroeConcreto("Heroe 1", 10, new List<IElementos>());
-            var heroe2 = new HeroeConcreto("Heroe 2", 10, new List<IElementos>());
+            var espada = new Espada("Espada", 10, 0);
+            var heroe1 = new Mago("Heroe 1", new List<IElementos> { espada }, new List<IHechizo>(), 10);
+            var heroe2 = new Elfo("Heroe 2", new List<IElementos> { espada }, 10);
 
             var enemigo1 = new Enemigo("Enemigo 1", 25, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
                 3);
@@ -88,9 +89,10 @@ namespace LibraryTests
         [Test]
         public void TestRemoverHeroesDerrotados()
         {
-            // Crear héroes
-            var heroe1 = new HeroeConcreto("Heroe 1", 0, new List<IElementos>());
-            var heroe2 = new HeroeConcreto("Heroe 2", 30, new List<IElementos>());
+            // Crear héroes mago y elfo
+            var espada = new Espada("Espada", 10, 5);
+            var heroe1 = new Mago("Heroe 1", new List<IElementos> { espada }, new List<IHechizo>(), 0);
+            var heroe2 = new Elfo("Heroe 2", new List<IElementos> { espada }, 30);
 
             // Iniciar batalla
             var batalla = new Batalla(new List<Heroe> { heroe1, heroe2 }, new List<Enemigo>());
@@ -105,8 +107,11 @@ namespace LibraryTests
         public void TestRemoverEnemigosDerrotados()
         {
             // Crear enemigos
-            var enemigo1 = new Enemigo("Enemigo 1", 0, new List<IElementos>(), 0);
-            var enemigo2 = new Enemigo("Enemigo 2", 25, new List<IElementos>(), 3);
+            var enemigo1 = new Enemigo("Enemigo 1", 0, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
+                3);
+
+            var enemigo2 = new Enemigo("Enemigo 2", 25, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
+                3);
 
             // Iniciar batalla
             var batalla = new Batalla(new List<Heroe>(), new List<Enemigo> { enemigo1, enemigo2 });
@@ -122,24 +127,24 @@ namespace LibraryTests
         {
             // Crear héroes
             var espada = new Espada("Espada", 10, 5);
-            var heroe1 = new HeroeConcreto("Heroe 1", 10, new List<IElementos> { espada }) { VP = 5 };
-            var heroe2 = new HeroeConcreto("Heroe 2", 10, new List<IElementos> { espada }) { VP = 3 };
+            var heroe1 = new Mago("Heroe 1", new List<IElementos> { espada }, new List<IHechizo>(), 10);
+            var heroe2 = new Elfo("Heroe 2", new List<IElementos> { espada }, 10);
 
             // Iniciar batalla
             var batalla = new Batalla(new List<Heroe> { heroe1, heroe2 }, new List<Enemigo>());
             batalla.CurarHeroesConVpAlto();
 
             // Verificar que el héroe con VP alto se curó
-            Assert.That(heroe1.Vida, Is.EqualTo(20)); // Aumenta la vida al curarse
+            Assert.That(heroe1.Vida, Is.EqualTo(10)); // Aumenta la vida al curarse
             Assert.That(heroe2.Vida, Is.EqualTo(10)); // No se cura porque VP < 5
         }
 
         [Test]
         public void TestFaseAtaqueHeroesYRemoverEnemigosDerrotados()
         {
-            // Crear héroes y enemigos
+            // Crear héroes elfo y enemigos
             var espada = new Espada("Espada", 18, 5); // 18 de ataque
-            var heroe = new HeroeConcreto("Heroe", 30, new List<IElementos> { espada });
+            var heroe = new Elfo("Elfo", new List<IElementos> { espada }, 30);
 
             var enemigo = new Enemigo("Enemigo", 14, new List<IElementos> { new Espada("Espada del enemigo", 8, 3) },
                 3);
@@ -153,18 +158,6 @@ namespace LibraryTests
             // Verificar que el enemigo fue derrotado
             Assert.That(enemigo.Vida, Is.EqualTo(0));
             Assert.That(batalla.Enemigos.Count, Is.EqualTo(0)); // Asegurarse de que se removió
-        }
-
-
-        public class HeroeConcreto : Heroe
-        {
-            public HeroeConcreto(string nombre, double vida, List<IElementos> elementos)
-            {
-                Nombre = nombre;
-                Vida = vida;
-                this.elementos = elementos;
-                this.vP = 0; // Inicializar VP en 0
-            }
         }
     }
 }
