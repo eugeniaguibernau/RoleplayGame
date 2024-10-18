@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using Program;
+using Program.Interfaces;
 using Program.Personajes;
 
 namespace Program.Tests

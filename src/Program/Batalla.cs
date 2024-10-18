@@ -39,7 +39,7 @@ public class Batalla
         }
     }
 
-    private void RemoverHeroesDerrotados()
+    public void RemoverHeroesDerrotados()
     {
         Heroes.RemoveAll(heroe => heroe.Vida == 0);
     }
@@ -59,7 +59,7 @@ public class Batalla
         }
     }
 
-    private void RemoverEnemigosDerrotados()
+    public void RemoverEnemigosDerrotados()
     {
         Enemigos.RemoveAll(enemigo => enemigo.Vida == 0);
     }
