@@ -23,7 +23,7 @@ public class Batalla
             FaseAtaqueHeroes();
             RemoverEnemigosDerrotados();
 
-            CurarHeroesConVPAlto();
+            CurarHeroesConVpAlto();
         }
 
         FinBatalla();
@@ -31,11 +31,12 @@ public class Batalla
 
     private void FaseAtaqueEnemigos()
     {
-        int numHeroes = Heroes.Count;
-        for (int i = 0; i < Enemigos.Count; i++)
+        int numHeroes = Heroes.Count; // Se guarda el número de héroes para evitar recalcularlo en cada iteración ej: 4
+        for (int i = 0; i < Enemigos.Count; i++) // Se recorre la lista de enemigos
         {
-            int indexHeroe = i % numHeroes;
-            Heroes[indexHeroe].RecibirAtaque(Enemigos[i]);
+            int indexHeroe =
+                i % numHeroes; // Se calcula el índice del héroe que recibirá el ataque ej: 0, 1, 2, 3, 0, 1, 2, 3
+            Heroes[indexHeroe].RecibirAtaque(Enemigos[i]); // Se ataca al héroe correspondiente
         }
     }
 
@@ -46,7 +47,7 @@ public class Batalla
 
     private void FaseAtaqueHeroes()
     {
-        foreach (var heroe in Heroes.Where(h => h.Vida > 0))
+        foreach (var heroe in Heroes)
         {
             foreach (var enemigo in Enemigos.ToList())
             {
@@ -64,7 +65,7 @@ public class Batalla
         Enemigos.RemoveAll(enemigo => enemigo.Vida == 0);
     }
 
-    private void CurarHeroesConVPAlto()
+    private void CurarHeroesConVpAlto()
     {
         foreach (var heroe in Heroes.Where(h => h.VP >= 5))
         {

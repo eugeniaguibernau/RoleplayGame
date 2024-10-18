@@ -1,6 +1,3 @@
-using NUnit.Framework;
-using System.Collections.Generic;
-using Program;
 using Program.Interfaces;
 using Program.Personajes;
 
@@ -24,10 +21,10 @@ namespace Program.Tests
             enano = new Enanos("Gaspar", new List<IElementos>(), 120);
             enemigo1 = new Enemigo() { Nombre = "Opel Reckord", Vida = 80, VP = 3 };
             enemigo2 = new Enemigo() { Nombre = "Urbano", Vida = 100, VP = 5 };
-            
+
             heroes = new List<Heroe> { mago, enano };
             enemigos = new List<Enemigo> { enemigo1, enemigo2 };
-            
+
             batalla = new Batalla(heroes, enemigos);
         }
 
@@ -35,7 +32,7 @@ namespace Program.Tests
         public void TestBatalla_HeroesGanan()
         {
             batalla.DoEncounter();
-            
+
             // Para asegurarse de que los buenos ganan, vemos si todos los malos fueron derrotados.
             Assert.IsEmpty(enemigos, "Los enemigos deberían estar vacíos al final de la batalla.");
             Assert.IsNotEmpty(heroes, "Debería haber al menos un héroe vivo.");
@@ -46,7 +43,7 @@ namespace Program.Tests
         {
             mago.Vida = 10;
             enano.Vida = 10;
-            
+
             batalla.DoEncounter();
 
             // Caso contrario, aqui ganan los malos, ergo; vemos si los buenos fueron derrotados.
@@ -78,13 +75,13 @@ namespace Program.Tests
             Assert.Less(mago.Vida, 100, "El mago debería haber recibido daño.");
             Assert.Less(enano.Vida, 120, "El enano debería haber recibido daño.");
         }
-        
+
         [Test]
         public void TestRemoverHeroesDerrotados()
         {
             mago.Vida = 0;
             enano.Vida = 5;
-            
+
             batalla.RemoverHeroesDerrotados();
 
             // Verificar que el mago Hugo ha sido eliminado, pero el enano no (porque su vida es mayor que 0)
@@ -98,7 +95,7 @@ namespace Program.Tests
         {
             enemigo1.Vida = 0;
             enemigo2.Vida = 50;
-            
+
             batalla.RemoverEnemigosDerrotados();
 
             // Verificar que el Opel Reckord ha sido eliminado, pero Urbano no (porque su vida es mayor que 0)
@@ -112,13 +109,13 @@ namespace Program.Tests
         public void TestBatalla_Termina()
         {
             // Verificar que el mensaje de finalización de batalla se muestra correctamente
-            using (var sw = new System.IO.StringWriter())
+            using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
 
                 batalla.DoEncounter();
                 string expected = "La batalla ha terminado";
-                
+
                 Assert.IsTrue(sw.ToString().Contains(expected), "La batalla debería terminar con el mensaje esperado.");
             }
         }

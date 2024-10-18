@@ -11,11 +11,15 @@ public class Enemigo : Personaje
     public override double ObtenerValorDeAtaque()
     {
         double tot = 0;
-        foreach (IElementos elemento in elementos)
+
+        if (elementos != null)
         {
-            if (elemento is IItemAtaque ataqueElemento)
+            foreach (IElementos elemento in elementos)
             {
-                tot += ataqueElemento.Ataque;
+                if (elemento is IItemAtaque ataqueElemento)
+                {
+                    tot += ataqueElemento.Ataque;
+                }
             }
         }
 
@@ -25,11 +29,16 @@ public class Enemigo : Personaje
     public override double ObtenerValorDeDefensa()
     {
         double tot = 0;
-        foreach (IElementos elemento in elementos)
+
+        // Check if 'elementos' is null before iterating
+        if (elementos != null)
         {
-            if (elemento is IItemDefensa defensaElemento)
+            foreach (IElementos elemento in elementos)
             {
-                tot += defensaElemento.Defensa;
+                if (elemento is IItemDefensa defensaElemento)
+                {
+                    tot += defensaElemento.Defensa;
+                }
             }
         }
 
