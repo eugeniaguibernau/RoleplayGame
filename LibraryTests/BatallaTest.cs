@@ -1,3 +1,4 @@
+using Program.Elementos;
 using Program.Interfaces;
 using Program.Personajes;
 
@@ -13,12 +14,16 @@ namespace Program.Tests
         private List<Heroe> heroes;
         private List<Enemigo> enemigos;
         private Batalla batalla;
+        private Arco arco;
+        private Escudo escudo;
+        private HechizoProteccion hechizoparamago;
+        private Tijera tijera;
 
         [SetUp]
         public void Setup()
         {
-            mago = new Mago("Hugo", new List<IElementos>(), new List<IHechizo>(), 100);
-            enano = new Enanos("Gaspar", new List<IElementos>(), 120);
+            mago = new Mago("Hugo", new List<IElementos>{arco}, new List<IHechizo>{hechizoparamago}, 100);
+            enano = new Enanos("Gaspar", new List<IElementos>{escudo, tijera}, 120);
             enemigo1 = new Enemigo() { Nombre = "Opel Reckord", Vida = 80, VP = 3 };
             enemigo2 = new Enemigo() { Nombre = "Urbano", Vida = 100, VP = 5 };
 
@@ -26,6 +31,11 @@ namespace Program.Tests
             enemigos = new List<Enemigo> { enemigo1, enemigo2 };
 
             batalla = new Batalla(heroes, enemigos);
+
+            arco = new Arco("arco", 10);
+            escudo = new Escudo("escudo", 5);
+            hechizoparamago = new HechizoProteccion("proteger", 10);
+            tijera = new Tijera("ijera", 5, 10);
         }
 
         [Test]
